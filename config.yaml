@@ -1,0 +1,65 @@
+# Configuración central del proyecto. Todas las rutas son relativas a la raíz del repositorio.
+proyecto:
+  nombre: "Sistema Inteligente de Priorización de Riesgo y Asignación de Visitas Domiciliarias"
+  version: "1.0.0"
+  semilla: 42
+
+rutas:
+  datos_crudos: "data/raw/noshow_appointments.csv"
+  centroides_zip: "data/raw/ohio_zcta_centroides_2023.csv"
+  datos_procesados: "data/processed/citas_procesadas.csv"
+  frecuencia_barrios: "data/processed/frecuencia_barrios.json"
+  modelos: "models"
+  mejor_modelo: "models/best_model.pkl"
+  modelo_v1: "models/model_v1.pkl"
+  figuras: "results/figures"
+  metricas: "results/metrics"
+  reportes: "results/reports"
+  logs: "results/reports/ejecucion.log"
+
+particion:
+  pliegues_particion: 4          # StratifiedGroupKFold: 1 de 4 pliegues = 25% de prueba
+  pliegues_cv_busqueda: 3
+  pliegues_cv_final: 5
+  semilla_oof: 1
+
+modelo:
+  # Rejilla original (capítulo 14 del informe)
+  rejilla_gb:
+    learning_rate: [0.05, 0.10]
+    max_depth: [3, 5]
+    max_iter: [100, 200]
+    min_samples_leaf: [20, 100]
+  rejilla_rf:
+    max_depth: [6, 8, 12]
+    min_samples_leaf: [20, 50]
+  recall_objetivo: 0.70
+
+optimizacion:
+  # Análisis de sensibilidad de hiperparámetros (Workshop S5)
+  ejecutar_busqueda: true
+  n_configuraciones_aleatorias: 40
+  espacio:
+    learning_rate: [0.01, 0.3]       # escala logarítmica
+    max_depth: [2, 10]
+    max_iter: [50, 400]
+    min_samples_leaf: [5, 400]       # escala logarítmica
+    l2_regularization: [0.0001, 10]  # escala logarítmica
+    max_leaf_nodes: [7, 63]
+
+equidad:
+  grupos_edad: [[0, 18], [19, 35], [36, 55], [56, 64], [65, 200]]
+  etiquetas_grupos: ["0 a 18", "19 a 35", "36 a 55", "56 a 64", "65 o más"]
+  remuestreos_bootstrap: 300
+
+simulacion:
+  n_solicitudes: 300
+  fraccion_intervenida: 0.20
+  reduccion_relativa: 0.25
+  replicas: 2000
+  replicas_sensibilidad: 1000
+  semilla: 2026
+  semilla_solicitudes: 11
+  # Sedes sorteadas en la consulta al NPI Registry del 18/09/2026 (ver data/README.md)
+  sedes_np: ["44132", "43402", "45669", "43545", "44115", "45662", "44143", "45601",
+             "43210", "45887", "43724", "45342", "45692", "44109", "45629"]
