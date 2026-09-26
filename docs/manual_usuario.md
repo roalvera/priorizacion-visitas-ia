@@ -1,0 +1,98 @@
+# Manual de usuario
+
+Guía para usar la interfaz del **Sistema de Priorización de Visitas Domiciliarias**. No se requieren conocimientos técnicos.
+
+## 1. Acceso
+
+- **En línea:** abra el enlace de la aplicación publicado en el [README](../README.md#8-interfaz-de-usuario).
+- **En su computadora:** desde la carpeta del proyecto ejecute `streamlit run app/app.py` y abra `http://localhost:8501`.
+
+La aplicación funciona en computadoras y celulares.
+
+![Vista en celular](../app/assets/capturas/07_movil.png)
+
+## 2. Pantalla principal
+
+![Pantalla principal anotada](../app/assets/capturas/01_inicio.png)
+
+| # | Elemento | Para qué sirve |
+|---|---|---|
+| 1 | Botones **Prueba con ejemplo** | Cargan automáticamente un paciente de ejemplo (riesgo bajo, riesgo alto o adulto mayor) |
+| 2 | Formulario de la cita | Datos del paciente, condiciones registradas, fecha de la cita e historial |
+| 3 | **Calcular riesgo** | Ejecuta la predicción |
+| 4 | Barra lateral de configuración | Umbral por grupo de edad (recomendado) y capacidad de confirmación para lotes |
+| 5 | Pestañas | Predicción individual, priorización de lotes, historial y "Acerca del modelo" |
+
+## 3. Predicción individual paso a paso
+
+1. Presione un botón **Prueba con ejemplo** o complete el formulario.
+   - *Días de antelación:* días entre la fecha en que se agendó la cita y la fecha de la cita.
+   - *Citas previas* e *inasistencias:* citas anteriores ya realizadas del paciente y cuántas de ellas fueron inasistencias.
+2. Presione **Calcular riesgo**. Mientras procesa aparece un indicador de carga.
+3. Lea el resultado:
+
+![Resultado de una predicción](../app/assets/capturas/02_prediccion.png)
+
+| # | Elemento | Cómo interpretarlo |
+|---|---|---|
+| 1 | Indicador | Probabilidad estimada de inasistencia. La marca roja es el umbral aplicado. |
+| 2 | Tarjeta de resultado | Categoría (bajo, moderado o alto), probabilidad, confianza en la clase predicha, umbral usado y tasa promedio de referencia (20.2%). |
+| 3 | Sugerencia | Acción recomendada: confirmar por teléfono si el riesgo es alto. |
+| 4 | Gráfico SHAP | Variables que más empujan el riesgo hacia arriba (rojo) o hacia abajo (verde) en **este** caso. |
+
+**Categorías:** *alto* si la probabilidad supera el umbral; *moderado* si está entre el 60% del umbral y el umbral; *bajo* en otro caso.
+
+## 4. Priorizar un lote de visitas
+
+![Priorización de un lote](../app/assets/capturas/04_lote.png)
+
+1. **(1)** Descargue la plantilla CSV para ver el formato, o presione **Prueba con ejemplo: lote de 50 visitas**.
+2. **(2)** Suba su archivo CSV. Columnas obligatorias: `gender_f`, `Age`, `Scholarship`, `Hipertension`, `Diabetes`, `Alcoholism`, `Handcap`, `SMS_received`, `lead_time_days`, `appt_dow` (0 = lunes), `prior_appts`, `prior_noshow_rate` (0 a 1), `neighbourhood_freq` (0 a 1). Opcionales: `id_visita` y `millas` (distancia a la sede del NP).
+3. **(3)** Revise el resumen: visitas válidas, de riesgo alto y a confirmar primero.
+4. **(4)** La tabla queda ordenada: primero las visitas marcadas con `confirmar_primero = 1`.
+5. **(5)** Descargue los resultados en CSV.
+
+Si el archivo incluye `millas`, el orden combina riesgo × distancia; si no, usa solo el riesgo. El porcentaje a confirmar se ajusta en la barra lateral (*Capacidad de confirmación*).
+
+## 5. Historial y comparación
+
+La pestaña **Historial de la sesión** guarda las predicciones individuales hechas mientras la página está abierta, las compara en un gráfico frente a su umbral y permite descargarlas en CSV o borrarlas.
+
+![Historial](../app/assets/capturas/05_historial.png)
+
+## 6. Acerca del modelo
+
+Muestra qué hace el modelo, sus métricas en datos de prueba, la equidad por grupo de edad y las limitaciones.
+
+![Acerca del modelo](../app/assets/capturas/06_acerca.png)
+
+## 7. Solución de problemas
+
+| Problema | Causa probable | Solución |
+|---|---|---|
+| "Las inasistencias previas no pueden ser más que las citas previas" | El número de inasistencias es mayor que el de citas | Corrija ambos valores |
+| "Faltan columnas en el CSV" | El archivo no tiene todas las columnas obligatorias o tienen otro nombre | Descargue la plantilla y copie sus datos en ese formato |
+| "Fila N: ... debe ser 0 o 1" | Una variable sí/no tiene otro valor | Use 1 para "sí" y 0 para "no" |
+| "No se pudo leer el archivo" | El archivo no es CSV separado por comas | Guárdelo como CSV (UTF-8) desde Excel |
+| "No se pudo cargar el modelo..." | Faltan archivos del modelo en una instalación local | Ejecute `python -m src.train` y `python -m src.evaluate` |
+| La app tarda en abrir | Primera carga del modelo en el servidor gratuito | Espere unos segundos; las siguientes consultas son inmediatas |
+
+![Ejemplo de mensaje de error](../app/assets/capturas/03_error_validacion.png)
+
+## 8. Preguntas frecuentes
+
+**¿La aplicación guarda los datos que ingreso?** No. Todo se procesa en memoria y se borra al cerrar la página.
+
+**¿Puedo usarla con pacientes reales?** No. Es un prototipo académico entrenado con datos públicos de otro país y otro tipo de cita. Un uso real exige reentrenarlo con datos autorizados y validarlo.
+
+**¿Qué significa el umbral por grupo de edad?** Con un solo umbral, el sistema detectaba solo el 31% de las inasistencias de los adultos mayores. El umbral por grupo iguala la cobertura (alrededor de 70% en todos los grupos). Se puede desactivar en la barra lateral para comparar.
+
+**¿Por qué el SMS aparece aumentando el riesgo?** Porque en los datos el SMS se enviaba sobre todo a citas agendadas con mucha antelación, que ya tienen más riesgo. El modelo refleja esa asociación; no significa que el recordatorio cause inasistencias.
+
+**¿Qué tan preciso es?** AUC de 0.741 en datos no vistos: ordena bien a los pacientes por riesgo en tres de cada cuatro comparaciones, pero se equivoca con frecuencia en casos individuales.
+
+**¿Puedo cambiar de tema claro a oscuro?** Sí: menú ⋮ (arriba a la derecha) → *Settings* → *Theme*.
+
+## 9. Soporte
+
+Abra un *issue* en el repositorio de GitHub del proyecto (pestaña **Issues**) describiendo el problema, los pasos para reproducirlo y, si es posible, una captura de pantalla. Autores: Romel Alberto Vera Macías y Jhon Henry Quimi Loza.
