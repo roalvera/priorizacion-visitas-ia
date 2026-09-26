@@ -155,6 +155,8 @@ También incluye manejo de errores con mensajes claros, indicadores de carga, ay
 3. Lea la probabilidad, la categoría, el umbral aplicado y el gráfico SHAP que explica el resultado.
 4. Para varias visitas, use *Priorizar un lote*: suba un CSV (o el lote de ejemplo) y descargue la lista ordenada.
 
+**Despliegue (Streamlit Community Cloud, gratuito):** en https://share.streamlit.io elija *New app*, el repositorio, la rama `main` y el archivo `app/app.py`; en *Advanced settings* seleccione Python 3.12. La app instala `app/requirements.txt` y usa el modelo ya entrenado de `models/`.
+
 **Aplicación desplegada:** `https://<su-app>.streamlit.app` *(se completa al publicar en Streamlit Community Cloud)*
 
 | Predicción individual | Priorización de un lote |
@@ -175,9 +177,11 @@ priorizacion-visitas-ia/
 ├── models/        best_model.pkl, model_v1.pkl, README.md
 ├── app/           app.py (Streamlit), textos.py (español e inglés), requirements.txt, assets/ (ejemplos, estilos, capturas)
 ├── tests/         Pruebas de procesamiento, modelo e interfaz (pytest)
-├── results/       figures/ (24 gráficos a 300 DPI), metrics/ (JSON y CSV), reports/ (guion del pitch y preparación)
+├── results/       figures/ (24 gráficos a 300 DPI), metrics/ (JSON y CSV), reports/ (guion, preguntas y lista de verificación)
 └── scripts/       Ejecución de los notebooks en orden y generación de códigos QR
 ```
+
+La correspondencia completa entre cada requisito de la guía y el repositorio está en [`results/reports/lista_verificacion_entrega.md`](results/reports/lista_verificacion_entrega.md).
 
 ## 8. Consideraciones éticas
 

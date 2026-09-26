@@ -124,7 +124,9 @@ def evaluar(cfg: dict | None = None) -> dict:
     res["shap_media_abs"] = dict(sorted({f: float(v) for f, v in zip(FEATURES, np.abs(sv).mean(axis=0))}.items(),
                                         key=lambda kv: -kv[1]))
     eq = equidad_por_grupo(test, p, modelo, cfg["equidad"]["remuestreos_bootstrap"], cfg["proyecto"]["semilla"])
-    res["equidad"] = eq.to_dict(orient="records")
+    # Las filas por sexo no tienen umbral mitigado: se omiten esas claves en lugar de guardar NaN
+    res["equidad"] = [{k: v for k, v in fila.items() if not (isinstance(v, float) and np.isnan(v))}
+                      for fila in eq.to_dict(orient="records")]
     res["confusion_sms"] = confusion_sms(pd.concat([train, test]))
     # Simulación
     sim = cfg["simulacion"]

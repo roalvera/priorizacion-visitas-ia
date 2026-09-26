@@ -233,11 +233,7 @@
       ],
       "recall_global": 0.7090713902308106,
       "precision_global": 0.3318261743280583,
-      "senalado_global": 0.43340046812911653,
-      "umbral_mitigado": NaN,
-      "recall_mitigado": NaN,
-      "precision_mitigado": NaN,
-      "senalado_mitigado": NaN
+      "senalado_global": 0.43340046812911653
     },
     {
       "grupo": "Hombres",
@@ -250,11 +246,7 @@
       ],
       "recall_global": 0.7108953613807982,
       "precision_global": 0.3369120654396728,
-      "senalado_global": 0.4224622030237581,
-      "umbral_mitigado": NaN,
-      "recall_mitigado": NaN,
-      "precision_mitigado": NaN,
-      "senalado_mitigado": NaN
+      "senalado_global": 0.4224622030237581
     }
   ],
   "confusion_sms": {
