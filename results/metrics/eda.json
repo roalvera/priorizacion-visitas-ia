@@ -1,0 +1,20 @@
+{
+  "calidad": {
+    "filas": 110527,
+    "pacientes": 62299,
+    "faltantes": 0,
+    "citas_duplicadas": 0,
+    "edad_negativa": 1,
+    "edad_mayor_100": 7,
+    "handcap_mayor_1": 199,
+    "antelacion_negativa_corregida": 5
+  },
+  "outliers": {
+    "edad_q99": 86.0,
+    "antelacion_q99": 68.0,
+    "antelacion_max": 179,
+    "citas_por_paciente_max": 88
+  },
+  "prevalencia": 0.20193438647919945,
+  "barrios": 81
+}

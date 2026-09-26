@@ -1,0 +1,105 @@
+{
+  "ranking": [
+    {
+      "hiperparametro": "learning_rate",
+      "importancia": 0.950682313754376,
+      "de": 0.10525994219956925
+    },
+    {
+      "hiperparametro": "max_depth",
+      "importancia": 0.11375908357012172,
+      "de": 0.019930068372413276
+    },
+    {
+      "hiperparametro": "max_iter",
+      "importancia": 0.0878255457942628,
+      "de": 0.025514273812739477
+    },
+    {
+      "hiperparametro": "max_leaf_nodes",
+      "importancia": 0.0824476970215457,
+      "de": 0.019552578626811305
+    },
+    {
+      "hiperparametro": "min_samples_leaf",
+      "importancia": 0.03196358514637497,
+      "de": 0.007683881600050198
+    },
+    {
+      "hiperparametro": "l2_regularization",
+      "importancia": 0.01557226012464522,
+      "de": 0.0033918461166991213
+    }
+  ],
+  "rango_un_factor": [
+    {
+      "hiperparametro": "learning_rate",
+      "rango_auc": 0.004920228816643224
+    },
+    {
+      "hiperparametro": "max_depth",
+      "rango_auc": 0.004355818841222048
+    },
+    {
+      "hiperparametro": "max_iter",
+      "rango_auc": 0.0030927849554061027
+    },
+    {
+      "hiperparametro": "min_samples_leaf",
+      "rango_auc": 0.0007326245193994829
+    },
+    {
+      "hiperparametro": "max_leaf_nodes",
+      "rango_auc": 0.0007304701721068119
+    },
+    {
+      "hiperparametro": "l2_regularization",
+      "rango_auc": 0.0007242256984376638
+    }
+  ],
+  "interacciones": [
+    {
+      "par": "learning_rate × max_iter",
+      "H": 0.13541302552047269
+    },
+    {
+      "par": "learning_rate × max_depth",
+      "H": 0.1226608416560314
+    },
+    {
+      "par": "max_depth × max_leaf_nodes",
+      "H": 0.07037175046868645
+    },
+    {
+      "par": "max_depth × max_iter",
+      "H": 0.0673909901218021
+    },
+    {
+      "par": "learning_rate × max_leaf_nodes",
+      "H": 0.05838292983841254
+    },
+    {
+      "par": "max_iter × max_leaf_nodes",
+      "H": 0.038619404233108695
+    }
+  ],
+  "mejor_busqueda": {
+    "learning_rate": 0.1,
+    "max_depth": 5.0,
+    "max_iter": 100.0,
+    "min_samples_leaf": 100.0,
+    "l2_regularization": 1.0,
+    "max_leaf_nodes": 31.0,
+    "cv_auc": 0.7362326580882237
+  },
+  "base": {
+    "learning_rate": 0.1,
+    "max_depth": 5.0,
+    "max_iter": 100.0,
+    "min_samples_leaf": 100.0,
+    "l2_regularization": 0.0,
+    "max_leaf_nodes": 31.0,
+    "cv_auc": 0.7358900965837422
+  },
+  "r2_sustituto": 0.8066481510336996
+}

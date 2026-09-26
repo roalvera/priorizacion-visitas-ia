@@ -1,0 +1,6 @@
+modelo,AUC-ROC,AUC-PR,Brier,AUC entrenamiento
+Regresión logística,0.6655,0.3053,0.1542,0.6632
+Random Forest,0.7338,0.366,0.1441,0.7486
+Gradient Boosting,0.7397,0.3757,0.1426,0.7745
+Referencia: solo antelación,0.7021,0.3111,0.1561,
+Sin información,0.5,0.2019,0.1612,
