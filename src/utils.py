@@ -51,6 +51,7 @@ def obtener_logger(nombre: str = "priorizacion", archivo: str | Path | None = No
 
 
 def fijar_semilla(semilla: int) -> None:
+    """Fija las semillas de random y NumPy."""
     random.seed(semilla)
     np.random.seed(semilla)
 
@@ -66,6 +67,7 @@ def _a_json(obj: Any):
 
 
 def guardar_json(datos: dict, archivo: str | Path) -> Path:
+    """Guarda un diccionario como JSON (UTF-8) y devuelve la ruta."""
     destino = ruta(archivo)
     destino.parent.mkdir(parents=True, exist_ok=True)
     with open(destino, "w", encoding="utf-8") as fh:
@@ -74,6 +76,7 @@ def guardar_json(datos: dict, archivo: str | Path) -> Path:
 
 
 def leer_json(archivo: str | Path) -> dict:
+    """Lee un JSON relativo a la raíz del repositorio."""
     with open(ruta(archivo), encoding="utf-8") as fh:
         return json.load(fh)
 

@@ -7,6 +7,11 @@ from src.data_processing import (FEATURES, agregar_historial, limpiar, registro_
                                  validar_registro)
 
 
+def _fila(pid, agendada, cita, no_show, **extra):
+    return {"PatientId": pid, "ScheduledDay": f"2016-05-{agendada}T08:00:00Z",
+            "AppointmentDay": f"2016-05-{cita}T00:00:00Z", "No-show": no_show, **extra}
+
+
 def _crudo(filas):
     base = {"AppointmentID": 1, "Gender": "F", "Age": 30, "Neighbourhood": "CENTRO", "Scholarship": 0,
             "Hipertension": 0, "Diabetes": 0, "Alcoholism": 0, "Handcap": 0, "SMS_received": 0}
@@ -21,10 +26,9 @@ def _registro_valido():
 
 def test_limpiar_elimina_edad_negativa_y_recorta_antelacion():
     df = _crudo([
-        {"PatientId": 1, "ScheduledDay": "2016-05-10T08:00:00Z", "AppointmentDay": "2016-05-12T00:00:00Z", "No-show": "No"},
-        {"PatientId": 2, "ScheduledDay": "2016-05-10T08:00:00Z", "AppointmentDay": "2016-05-09T00:00:00Z", "No-show": "Yes"},
-        {"PatientId": 3, "ScheduledDay": "2016-05-10T08:00:00Z", "AppointmentDay": "2016-05-10T00:00:00Z",
-         "No-show": "No", "Age": -1}])
+        _fila(1, "10", "12", "No"),
+        _fila(2, "10", "09", "Yes"),
+        _fila(3, "10", "10", "No", Age=-1)])
     out = limpiar(df)
     assert len(out) == 2
     assert out["lead_time_days"].tolist() == [2, 0]
@@ -34,9 +38,9 @@ def test_limpiar_elimina_edad_negativa_y_recorta_antelacion():
 def test_historial_sin_fuga_temporal():
     # Cita B se agenda ANTES de que ocurra la cita A: el desenlace de A no puede entrar al historial de B.
     df = _crudo([
-        {"PatientId": 7, "ScheduledDay": "2016-05-01T08:00:00Z", "AppointmentDay": "2016-05-10T00:00:00Z", "No-show": "Yes"},
-        {"PatientId": 7, "ScheduledDay": "2016-05-05T08:00:00Z", "AppointmentDay": "2016-05-20T00:00:00Z", "No-show": "No"},
-        {"PatientId": 7, "ScheduledDay": "2016-05-15T08:00:00Z", "AppointmentDay": "2016-05-25T00:00:00Z", "No-show": "No"}])
+        _fila(7, "01", "10", "Yes"),
+        _fila(7, "05", "20", "No"),
+        _fila(7, "15", "25", "No")])
     out = agregar_historial(limpiar(df))
     assert out["prior_appts"].tolist() == [0, 0, 1]
     assert out["prior_noshow_rate"].tolist() == [0.0, 0.0, 1.0]

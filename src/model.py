@@ -22,6 +22,7 @@ def crear_gradient_boosting(semilla: int = 42, **params) -> HistGradientBoosting
 
 
 def crear_random_forest(semilla: int = 42, **params) -> RandomForestClassifier:
+    """Random Forest de comparación (por defecto: 300 árboles, profundidad 8, hoja mínima 20)."""
     base = {"n_estimators": 300, "max_depth": 8, "min_samples_leaf": 20}
     base.update(params)
     return RandomForestClassifier(random_state=semilla, n_jobs=-1, **base)
@@ -64,9 +65,11 @@ class ModeloRiesgo:
         return X[self.features]
 
     def predecir_probabilidad(self, X: pd.DataFrame) -> np.ndarray:
+        """Probabilidad de inasistencia (clase 1) para cada fila de X."""
         return self.estimador.predict_proba(self._matriz(X))[:, 1]
 
     def umbrales_por_fila(self, X: pd.DataFrame, mitigado: bool = True) -> np.ndarray:
+        """Umbral que corresponde a cada fila: por grupo de edad si mitigado=True, si no el global."""
         if not mitigado or not self.umbrales_grupo:
             return np.full(len(X), self.umbral_global)
         grupos = asignar_grupo_edad(X["Age"], self.grupos_edad, self.etiquetas_grupos)
@@ -77,6 +80,7 @@ class ModeloRiesgo:
         return (self.predecir_probabilidad(X) >= self.umbrales_por_fila(X, mitigado)).astype(int)
 
     def guardar(self, path: str | Path) -> Path:
+        """Serializa el modelo completo con joblib y devuelve la ruta."""
         destino = ruta(path)
         destino.parent.mkdir(parents=True, exist_ok=True)
         joblib.dump(self, destino)
@@ -84,6 +88,7 @@ class ModeloRiesgo:
 
     @staticmethod
     def cargar(path: str | Path) -> "ModeloRiesgo":
+        """Carga un ModeloRiesgo guardado, con errores informativos si falta o no es válido."""
         origen = ruta(path)
         if not origen.exists():
             raise FileNotFoundError(f"No existe el modelo {origen}. Ejecute primero: python -m src.train")

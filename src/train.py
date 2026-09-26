@@ -26,6 +26,7 @@ def umbral_para_recall(y, p, recall_objetivo: float) -> float:
 
 
 def metricas_basicas(y, p) -> dict:
+    """AUC-ROC, AUC-PR y puntaje de Brier."""
     return {"auc_roc": float(roc_auc_score(y, p)), "auc_pr": float(average_precision_score(y, p)),
             "brier": float(brier_score_loss(y, p))}
 
@@ -41,6 +42,7 @@ def predicciones_oof(params: dict, X, y, g, semilla_oof: int, semilla: int, n_sp
 
 
 def entrenar(cfg: dict | None = None) -> dict:
+    """Entrenamiento completo; guarda modelos, datos procesados y métricas."""
     cfg = cfg or cargar_config()
     log = obtener_logger(archivo=cfg["rutas"]["logs"])
     t0 = time.time()
@@ -91,8 +93,8 @@ def entrenar(cfg: dict | None = None) -> dict:
                        "rf_auc_prueba": float(roc_auc_score(yte, rf_aj.predict_proba(Xte)[:, 1])),
                        "resultados_rejilla_gb": [
                            {**{k: (float(v) if isinstance(v, float) else int(v)) for k, v in p.items()},
-                            "cv_auc": float(s)} for p, s in zip(gs_gb.cv_results_["params"],
-                                                               gs_gb.cv_results_["mean_test_score"])]}
+                            "cv_auc": float(s)}
+                           for p, s in zip(gs_gb.cv_results_["params"], gs_gb.cv_results_["mean_test_score"])]}
     cv5 = StratifiedGroupKFold(n_splits=cfg["particion"]["pliegues_cv_final"], shuffle=True, random_state=semilla)
     s5 = cross_val_score(final, Xtr, ytr, groups=gtr, cv=cv5, scoring="roc_auc", n_jobs=1)
     res["cv5_modelo_final"] = {"media": float(s5.mean()), "de": float(s5.std()), "pliegues": s5.tolist()}
@@ -115,10 +117,10 @@ def entrenar(cfg: dict | None = None) -> dict:
         .guardar(cfg["rutas"]["mejor_modelo"])
     v1 = iniciales["Gradient Boosting (inicial)"]
     oof_v1 = predicciones_oof({}, Xtr, ytr, gtr, cfg["particion"]["semilla_oof"], semilla)
+    meta_v1 = {"version": "0.1.0", "parametros": "valores por defecto",
+               "auc_prueba": res["modelos_iniciales"]["Gradient Boosting (inicial)"]["auc_roc"]}
     ModeloRiesgo(v1, FEATURES, umbral_para_recall(ytr, oof_v1, objetivo), {}, eq["grupos_edad"],
-                 eq["etiquetas_grupos"], {"version": "0.1.0", "parametros": "valores por defecto",
-                                          "auc_prueba": res["modelos_iniciales"]["Gradient Boosting (inicial)"]["auc_roc"]}) \
-        .guardar(cfg["rutas"]["modelo_v1"])
+                 eq["etiquetas_grupos"], meta_v1).guardar(cfg["rutas"]["modelo_v1"])
     res["umbrales"] = {"global": thr_global, "por_grupo": thr_grupo}
     np.save(ruta(cfg["rutas"]["metricas"]) / "oof_entrenamiento.npy", oof)
     guardar_json(res, f"{cfg['rutas']['metricas']}/entrenamiento.json")
