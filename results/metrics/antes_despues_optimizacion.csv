@@ -1,0 +1,3 @@
+modelo,AUC-ROC,AUC-PR,Brier,umbral,recall,precisión
+"v1: valores por defecto, umbral 0.5",0.7397,0.3757,0.1426,0.5,0.0219,0.5728
+best: rejilla + umbral OOF,0.7413,0.377,0.1424,0.2424,0.7097,0.3335
