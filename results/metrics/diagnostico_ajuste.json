@@ -1,0 +1,400 @@
+{
+  "diagnostico": [
+    {
+      "modelo": "Complejo sin regularización",
+      "iteraciones": 300,
+      "mejor_iteracion": 25,
+      "train_loss_final": 0.2115693573720546,
+      "val_loss_final": 0.4799856318468644,
+      "val_loss_min": 0.44283172449980057,
+      "brecha_final": 0.26841627447480976,
+      "pendiente_brecha_final": 0.002801637430227051,
+      "subida_val_pct": 8.390073540695601,
+      "ratio_sin_informacion": 0.42056283103915804,
+      "train_auc_final": 0.9905500112579931,
+      "val_auc_final": 0.7101077833302496,
+      "diagnostico": "Overfitting",
+      "justificacion": "val_loss sube 8.4% desde su mínimo (iteración 25) y la brecha final es 0.268"
+    },
+    {
+      "modelo": "Muy simple (tocones, tasa 0.01)",
+      "iteraciones": 100,
+      "mejor_iteracion": 100,
+      "train_loss_final": 0.4648692682476429,
+      "val_loss_final": 0.4628359667663732,
+      "val_loss_min": 0.4628359667663732,
+      "brecha_final": -0.0020333014812697336,
+      "pendiente_brecha_final": -5.38407258679761e-05,
+      "subida_val_pct": 0.0,
+      "ratio_sin_informacion": 0.9240786943145209,
+      "train_auc_final": 0.6873245036191546,
+      "val_auc_final": 0.6895677686458623,
+      "diagnostico": "Underfitting",
+      "justificacion": "train_loss = 92% de la pérdida sin información y brecha pequeña (-0.002)"
+    },
+    {
+      "modelo": "Configuración final",
+      "iteraciones": 100,
+      "mejor_iteracion": 95,
+      "train_loss_final": 0.42858632959509235,
+      "val_loss_final": 0.43839331766002393,
+      "val_loss_min": 0.4383700013107042,
+      "brecha_final": 0.009806988064931577,
+      "pendiente_brecha_final": 0.0002764169444556356,
+      "subida_val_pct": 0.005318874295690979,
+      "ratio_sin_informacion": 0.8519545663799513,
+      "train_auc_final": 0.759826544714657,
+      "val_auc_final": 0.7382688907075063,
+      "diagnostico": "Óptimo",
+      "justificacion": "brecha 0.010 y val_loss a 0.0% de su mínimo"
+    }
+  ],
+  "estrategias": [
+    {
+      "modelo": "Base con sobreajuste",
+      "iteraciones": 300,
+      "mejor_iteracion": 25,
+      "train_loss_final": 0.2115693573720546,
+      "val_loss_final": 0.4799856318468644,
+      "val_loss_min": 0.44283172449980057,
+      "brecha_final": 0.26841627447480976,
+      "pendiente_brecha_final": 0.002801637430227051,
+      "subida_val_pct": 8.390073540695601,
+      "ratio_sin_informacion": 0.42056283103915804,
+      "train_auc_final": 0.9905500112579931,
+      "val_auc_final": 0.7101077833302496,
+      "diagnostico": "Overfitting"
+    },
+    {
+      "modelo": "E1 early stopping (grupo de validación)",
+      "iteraciones": 25,
+      "mejor_iteracion": 25,
+      "train_loss_final": 0.39376892227405197,
+      "val_loss_final": 0.44283172449980057,
+      "val_loss_min": 0.44283172449980057,
+      "brecha_final": 0.0490628022257486,
+      "pendiente_brecha_final": 0.009135769767823607,
+      "subida_val_pct": 0.0,
+      "ratio_sin_informacion": 0.7827436580789443,
+      "train_auc_final": 0.8408458497301485,
+      "val_auc_final": 0.7302450880399539,
+      "diagnostico": "Overfitting leve"
+    },
+    {
+      "modelo": "E2 regularización (L2=10, hoja mínima 200)",
+      "iteraciones": 300,
+      "mejor_iteracion": 40,
+      "train_loss_final": 0.33443114354553444,
+      "val_loss_final": 0.46141290180231637,
+      "val_loss_min": 0.43983427334699465,
+      "brecha_final": 0.12698175825678193,
+      "pendiente_brecha_final": 0.0014746865701571533,
+      "subida_val_pct": 4.90608162277019,
+      "ratio_sin_informacion": 0.6647905455884834,
+      "train_auc_final": 0.8959030019915871,
+      "val_auc_final": 0.7198295529298477,
+      "diagnostico": "Overfitting"
+    },
+    {
+      "modelo": "E3 menor complejidad (profundidad 5, hoja 100, 100 árboles)",
+      "iteraciones": 100,
+      "mejor_iteracion": 95,
+      "train_loss_final": 0.42858632959509235,
+      "val_loss_final": 0.43839331766002393,
+      "val_loss_min": 0.4383700013107042,
+      "brecha_final": 0.009806988064931577,
+      "pendiente_brecha_final": 0.0002764169444556356,
+      "subida_val_pct": 0.005318874295690979,
+      "ratio_sin_informacion": 0.8519545663799513,
+      "train_auc_final": 0.759826544714657,
+      "val_auc_final": 0.7382688907075063,
+      "diagnostico": "Óptimo"
+    },
+    {
+      "modelo": "Base con subajuste",
+      "iteraciones": 100,
+      "mejor_iteracion": 100,
+      "train_loss_final": 0.4648692682476429,
+      "val_loss_final": 0.4628359667663732,
+      "val_loss_min": 0.4628359667663732,
+      "brecha_final": -0.0020333014812697336,
+      "pendiente_brecha_final": -5.38407258679761e-05,
+      "subida_val_pct": 0.0,
+      "ratio_sin_informacion": 0.9240786943145209,
+      "train_auc_final": 0.6873245036191546,
+      "val_auc_final": 0.6895677686458623,
+      "diagnostico": "Underfitting"
+    },
+    {
+      "modelo": "U1 más capacidad y mayor tasa (= configuración final)",
+      "iteraciones": 100,
+      "mejor_iteracion": 95,
+      "train_loss_final": 0.42858632959509235,
+      "val_loss_final": 0.43839331766002393,
+      "val_loss_min": 0.4383700013107042,
+      "brecha_final": 0.009806988064931577,
+      "pendiente_brecha_final": 0.0002764169444556356,
+      "subida_val_pct": 0.005318874295690979,
+      "ratio_sin_informacion": 0.8519545663799513,
+      "train_auc_final": 0.759826544714657,
+      "val_auc_final": 0.7382688907075063,
+      "diagnostico": "Óptimo"
+    }
+  ],
+  "umbrales": {
+    "brecha_pequena": 0.02,
+    "brecha_grande": 0.05,
+    "subida_val": 0.02,
+    "ratio_subajuste": 0.9
+  },
+  "curvas_aprendizaje": {
+    "Complejo sin regularización": [
+      {
+        "n": 5525,
+        "train": 0.9999962179817342,
+        "train_de": 2.188433048907325e-06,
+        "val": 0.679345743979806,
+        "val_de": 0.002223619980995694
+      },
+      {
+        "n": 15471,
+        "train": 0.999973573083499,
+        "train_de": 9.63461827148178e-06,
+        "val": 0.6929541548574164,
+        "val_de": 0.00028862836107212796
+      },
+      {
+        "n": 25418,
+        "train": 0.999798522715051,
+        "train_de": 3.274521603957981e-05,
+        "val": 0.6982604843661048,
+        "val_de": 0.002053855668185549
+      },
+      {
+        "n": 35364,
+        "train": 0.9992185646011974,
+        "train_de": 5.858520523089298e-05,
+        "val": 0.70222126522818,
+        "val_de": 0.0015771818158313022
+      },
+      {
+        "n": 45310,
+        "train": 0.9973846006203692,
+        "train_de": 7.825314672219154e-05,
+        "val": 0.7066290483738497,
+        "val_de": 0.0039037796582815413
+      },
+      {
+        "n": 55257,
+        "train": 0.994302705672832,
+        "train_de": 0.0006527214910264603,
+        "val": 0.7089089184439089,
+        "val_de": 0.005225421705654734
+      }
+    ],
+    "Muy simple (tocones, tasa 0.01)": [
+      {
+        "n": 5525,
+        "train": 0.6950777107000526,
+        "train_de": 0.0067720124243844946,
+        "val": 0.6880319215648196,
+        "val_de": 0.0027539279336766097
+      },
+      {
+        "n": 15471,
+        "train": 0.6898953660491033,
+        "train_de": 0.0037935475905746924,
+        "val": 0.6884611278618618,
+        "val_de": 0.002745943944243876
+      },
+      {
+        "n": 25418,
+        "train": 0.6807314789729632,
+        "train_de": 0.007662245120224622,
+        "val": 0.6806902460339703,
+        "val_de": 0.012767310118201706
+      },
+      {
+        "n": 35364,
+        "train": 0.6786407696280109,
+        "train_de": 0.009543271521723684,
+        "val": 0.6778964457251061,
+        "val_de": 0.01438031027249293
+      },
+      {
+        "n": 45310,
+        "train": 0.6814285866851688,
+        "train_de": 0.008685759746716372,
+        "val": 0.6806143888692328,
+        "val_de": 0.012677199321276483
+      },
+      {
+        "n": 55257,
+        "train": 0.6815831929169125,
+        "train_de": 0.008260282216500395,
+        "val": 0.6807428515205928,
+        "val_de": 0.01279277931541673
+      }
+    ],
+    "Configuración final": [
+      {
+        "n": 5525,
+        "train": 0.8192986137141777,
+        "train_de": 0.001438225017859207,
+        "val": 0.7198127856818104,
+        "val_de": 0.003891656000048193
+      },
+      {
+        "n": 15471,
+        "train": 0.7864736444796453,
+        "train_de": 0.0048155511768421125,
+        "val": 0.727737572965404,
+        "val_de": 0.0034689486274646747
+      },
+      {
+        "n": 25418,
+        "train": 0.7732719843911431,
+        "train_de": 0.00568110089303061,
+        "val": 0.7297914700715827,
+        "val_de": 0.002509165468107121
+      },
+      {
+        "n": 35364,
+        "train": 0.7695494494131748,
+        "train_de": 0.004150260233479194,
+        "val": 0.7331508526017888,
+        "val_de": 0.0032323714194199913
+      },
+      {
+        "n": 45310,
+        "train": 0.766033834581764,
+        "train_de": 0.0030645109359195523,
+        "val": 0.734824637637495,
+        "val_de": 0.003994579457992322
+      },
+      {
+        "n": 55257,
+        "train": 0.7644716682852692,
+        "train_de": 0.0033036747074342517,
+        "val": 0.7355452338930052,
+        "val_de": 0.0037669352263952722
+      }
+    ]
+  },
+  "validacion_max_depth": [
+    {
+      "valor": 1,
+      "train": 0.7268123088296964,
+      "train_de": 0.0015002401539714113,
+      "val": 0.7250502028074036,
+      "val_de": 0.003378241640296572
+    },
+    {
+      "valor": 2,
+      "train": 0.7364538419306746,
+      "train_de": 0.001380233272555091,
+      "val": 0.7315342777425201,
+      "val_de": 0.002821946434942916
+    },
+    {
+      "valor": 3,
+      "train": 0.7447252645829422,
+      "train_de": 0.0016705286077996803,
+      "val": 0.7345843465677958,
+      "val_de": 0.003186581471443563
+    },
+    {
+      "valor": 4,
+      "train": 0.7545458756485793,
+      "train_de": 0.0022545797174099566,
+      "val": 0.7354236782668465,
+      "val_de": 0.0033816816320286305
+    },
+    {
+      "valor": 5,
+      "train": 0.7642408796009059,
+      "train_de": 0.003088705759051861,
+      "val": 0.7358900965837422,
+      "val_de": 0.0034802476207813084
+    },
+    {
+      "valor": 7,
+      "train": 0.7743231825907703,
+      "train_de": 0.0033458321828041607,
+      "val": 0.7349815779785462,
+      "val_de": 0.0037034150664522238
+    },
+    {
+      "valor": 10,
+      "train": 0.7797547638665486,
+      "train_de": 0.0022286107103293602,
+      "val": 0.735081858922011,
+      "val_de": 0.004121183317179213
+    },
+    {
+      "valor": 15,
+      "train": 0.7810387738129031,
+      "train_de": 0.0021710291954060526,
+      "val": 0.7352179335980615,
+      "val_de": 0.003837572889311172
+    }
+  ],
+  "validacion_learning_rate": [
+    {
+      "valor": 0.003,
+      "train": 0.7351516631646015,
+      "train_de": 0.0009615229514393003,
+      "val": 0.729095250934205,
+      "val_de": 0.003253896889806884
+    },
+    {
+      "valor": 0.01,
+      "train": 0.7399204426485141,
+      "train_de": 0.001537831234859933,
+      "val": 0.7318030884275206,
+      "val_de": 0.002865528088483415
+    },
+    {
+      "valor": 0.03,
+      "train": 0.7475798947917015,
+      "train_de": 0.0018244310661446983,
+      "val": 0.7342445481845362,
+      "val_de": 0.002780975513206998
+    },
+    {
+      "valor": 0.05,
+      "train": 0.7539918697456741,
+      "train_de": 0.0017205330030085407,
+      "val": 0.7352385062489629,
+      "val_de": 0.003154128634877783
+    },
+    {
+      "valor": 0.1,
+      "train": 0.7642408796009059,
+      "train_de": 0.003088705759051861,
+      "val": 0.7358900965837422,
+      "val_de": 0.0034802476207813084
+    },
+    {
+      "valor": 0.2,
+      "train": 0.7768544856890632,
+      "train_de": 0.002271734056406538,
+      "val": 0.7347442124201821,
+      "val_de": 0.004470000010056831
+    },
+    {
+      "valor": 0.4,
+      "train": 0.7945406412317713,
+      "train_de": 0.0024644103216971843,
+      "val": 0.7280375012698973,
+      "val_de": 0.004524873519611929
+    },
+    {
+      "valor": 0.7,
+      "train": 0.8071669541777108,
+      "train_de": 0.0031862499125573833,
+      "val": 0.7193362263754116,
+      "val_de": 0.0027474372521978274
+    }
+  ]
+}

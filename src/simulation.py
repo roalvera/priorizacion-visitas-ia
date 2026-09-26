@@ -31,6 +31,7 @@ def construir_escenario(cfg: dict) -> tuple[pd.DataFrame, pd.DataFrame, np.ndarr
 
 
 def seleccionar(politica: str, p, y, dist, k: int, rng) -> np.ndarray:
+    """Índices de las k solicitudes que elige cada política de priorización."""
     if politica == "azar":
         return rng.choice(len(p), k, replace=False)
     if politica == "distancia":

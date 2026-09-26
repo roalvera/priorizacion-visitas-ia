@@ -26,6 +26,7 @@ ENTEROS = {"max_depth", "max_iter", "min_samples_leaf", "max_leaf_nodes"}
 
 
 def muestrear_configuraciones(espacio: dict, n: int, semilla: int) -> list[dict]:
+    """Configuraciones aleatorias del espacio (escala logarítmica en tasa, hoja y L2)."""
     rng = np.random.RandomState(semilla)
     confs = []
     for _ in range(n):
@@ -51,6 +52,7 @@ def configuraciones_un_factor(base: dict, niveles: dict) -> list[dict]:
 
 
 def evaluar_configuraciones(confs: list[dict], X, y, g, semilla: int, n_splits: int = 3, logger=None) -> pd.DataFrame:
+    """AUC de validación cruzada agrupada por paciente para cada configuración."""
     cv = StratifiedGroupKFold(n_splits=n_splits, shuffle=True, random_state=semilla)
     filas = []
     for i, c in enumerate(confs):
@@ -73,18 +75,21 @@ def _transformar(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def ajustar_sustituto(resultados: pd.DataFrame, semilla: int = 42):
+    """Random Forest sustituto que aprende configuración -> AUC."""
     X, y = _transformar(resultados), resultados["cv_auc"].values
     sust = RandomForestRegressor(n_estimators=500, min_samples_leaf=2, random_state=semilla).fit(X, y)
     return sust, X
 
 
 def ranking_importancia(sust, X, y, semilla: int = 42) -> pd.DataFrame:
+    """Ranking de hiperparámetros por importancia de permutación en el sustituto."""
     pi = permutation_importance(sust, X, y, n_repeats=30, random_state=semilla)
     return pd.DataFrame({"hiperparametro": HP, "importancia": pi.importances_mean,
                          "de": pi.importances_std}).sort_values("importancia", ascending=False)
 
 
 def dependencia_parcial(sust, X, hp: str, n: int = 25) -> pd.DataFrame:
+    """Dependencia parcial 1D del AUC respecto de un hiperparámetro."""
     pd_ = partial_dependence(sust, X, [HP.index(hp)], grid_resolution=n, kind="average")
     grid = pd_["grid_values"][0]
     valores = 10 ** grid if hp in LOG_HP else grid
@@ -135,8 +140,8 @@ def ejecutar(cfg: dict | None = None) -> pd.DataFrame:
     confs += [dict(c, _factor="aleatoria") for c in aleatorias]
     log.info("sensibilidad de hiperparámetros: %d configuraciones", len(confs))
     res = evaluar_configuraciones(confs, X, y, g, semilla, cfg["particion"]["pliegues_cv_busqueda"], log)
-    res.rename(columns={"_factor": "tipo"}).to_csv(ruta(cfg["rutas"]["metricas"]) / "sensibilidad_hiperparametros.csv",
-                                                  index=False)
+    destino = ruta(cfg["rutas"]["metricas"]) / "sensibilidad_hiperparametros.csv"
+    res.rename(columns={"_factor": "tipo"}).to_csv(destino, index=False)
     return res
 
 

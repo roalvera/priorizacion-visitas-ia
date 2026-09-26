@@ -120,7 +120,8 @@ def validar_registro(registro: dict) -> list[str]:
     for col in FEATURES:
         if col == "chronic_count":
             continue
-        if col not in registro or registro[col] is None or (isinstance(registro[col], float) and np.isnan(registro[col])):
+        valor = registro.get(col)
+        if valor is None or (isinstance(valor, float) and np.isnan(valor)):
             errores.append(f"Falta el valor de «{ETIQUETAS[col]}».")
             continue
         try:

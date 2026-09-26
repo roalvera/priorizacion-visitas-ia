@@ -101,5 +101,8 @@ flowchart LR
 | `src/model.py` | Fábricas de modelos y clase `ModeloRiesgo` (umbrales y serialización) |
 | `src/train.py` | Entrenamiento completo: `python -m src.train` |
 | `src/evaluate.py` | Evaluación completa: `python -m src.evaluate` |
+| `src/diagnosis.py` | Diagnóstico de sobreajuste y subajuste (Semana 3): tracking por iteración, métricas cuantitativas, curvas de aprendizaje y de validación |
 | `src/optimization.py` | Análisis de sensibilidad de hiperparámetros: `python -m src.optimization` |
 | `src/simulation.py` | Escenario geográfico, políticas de priorización y simulación de Monte Carlo |
+| `app/app.py` | Interfaz Streamlit (usa los módulos de `src/`, sin duplicar lógica) |
+| `app/textos.py` | Textos de la interfaz en español e inglés |

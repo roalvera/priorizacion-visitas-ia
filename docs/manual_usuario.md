@@ -7,7 +7,7 @@ Guía para usar la interfaz del **Sistema de Priorización de Visitas Domiciliar
 - **En línea:** abra el enlace de la aplicación publicado en el [README](../README.md#8-interfaz-de-usuario).
 - **En su computadora:** desde la carpeta del proyecto ejecute `streamlit run app/app.py` y abra `http://localhost:8501`.
 
-La aplicación funciona en computadoras y celulares.
+La aplicación funciona en computadoras y celulares, en **español o inglés** (selector *Idioma / Language* en la parte superior de la barra lateral). Dentro de la app, el desplegable **📘 ¿Cómo usar esta herramienta?** resume estos pasos, y los íconos ⓘ muestran ayudas.
 
 ![Vista en celular](../app/assets/capturas/07_movil.png)
 
@@ -36,7 +36,7 @@ La aplicación funciona en computadoras y celulares.
 | # | Elemento | Cómo interpretarlo |
 |---|---|---|
 | 1 | Indicador | Probabilidad estimada de inasistencia. La marca roja es el umbral aplicado. |
-| 2 | Tarjeta de resultado | Categoría (bajo, moderado o alto), probabilidad, confianza en la clase predicha, umbral usado y tasa promedio de referencia (20.2%). |
+| 2 | Tarjeta de resultado | Categoría (bajo, moderado o alto), probabilidad de inasistencia y de asistencia, umbral usado (y grupo de edad) y tasa promedio de referencia (20.2%). |
 | 3 | Sugerencia | Acción recomendada: confirmar por teléfono si el riesgo es alto. |
 | 4 | Gráfico SHAP | Variables que más empujan el riesgo hacia arriba (rojo) o hacia abajo (verde) en **este** caso. |
 
@@ -66,7 +66,13 @@ Muestra qué hace el modelo, sus métricas en datos de prueba, la equidad por gr
 
 ![Acerca del modelo](../app/assets/capturas/06_acerca.png)
 
-## 7. Solución de problemas
+## 7. Cambiar el idioma
+
+**(1)** En *Idioma / Language*, arriba en la barra lateral, elija *English*. Toda la interfaz, incluidos los ejemplos, las explicaciones SHAP y la sección "Acerca del modelo", cambia al inglés; los datos del formulario se conservan.
+
+![Interfaz en inglés](../app/assets/capturas/08_ingles.png)
+
+## 8. Solución de problemas
 
 | Problema | Causa probable | Solución |
 |---|---|---|
@@ -79,7 +85,7 @@ Muestra qué hace el modelo, sus métricas en datos de prueba, la equidad por gr
 
 ![Ejemplo de mensaje de error](../app/assets/capturas/03_error_validacion.png)
 
-## 8. Preguntas frecuentes
+## 9. Preguntas frecuentes
 
 **¿La aplicación guarda los datos que ingreso?** No. Todo se procesa en memoria y se borra al cerrar la página.
 
@@ -93,6 +99,8 @@ Muestra qué hace el modelo, sus métricas en datos de prueba, la equidad por gr
 
 **¿Puedo cambiar de tema claro a oscuro?** Sí: menú ⋮ (arriba a la derecha) → *Settings* → *Theme*.
 
-## 9. Soporte
+**¿Puedo usarla en inglés?** Sí: seleccione *English* en *Idioma / Language*, arriba en la barra lateral. Los datos ingresados se conservan al cambiar de idioma.
+
+## 10. Soporte
 
 Abra un *issue* en el repositorio de GitHub del proyecto (pestaña **Issues**) describiendo el problema, los pasos para reproducirlo y, si es posible, una captura de pantalla. Autores: Romel Alberto Vera Macías y Jhon Henry Quimi Loza.

@@ -21,11 +21,13 @@ from .utils import cargar_config, guardar_json, obtener_logger, ruta
 
 
 def cargar_particiones(cfg: dict):
+    """Conjuntos de entrenamiento y prueba desde los datos procesados."""
     df = pd.read_csv(ruta(cfg["rutas"]["datos_procesados"]))
     return df[df["conjunto"] == "entrenamiento"].copy(), df[df["conjunto"] == "prueba"].copy()
 
 
 def metricas_umbral(y, pred) -> dict:
+    """Precisión, recall, F1, exactitud y porcentaje señalado para predicciones binarias."""
     return {"precision": float(precision_score(y, pred, zero_division=0)), "recall": float(recall_score(y, pred)),
             "f1": float(f1_score(y, pred)), "exactitud": float(accuracy_score(y, pred)),
             "porcentaje_senalado": float(np.mean(pred))}
@@ -93,6 +95,7 @@ def valores_shap(modelo: ModeloRiesgo, X: pd.DataFrame, n: int = 3000, semilla: 
 
 
 def evaluar(cfg: dict | None = None) -> dict:
+    """Evaluación completa en prueba; guarda results/metrics/evaluacion.json."""
     cfg = cfg or cargar_config()
     log = obtener_logger(archivo=cfg["rutas"]["logs"])
     modelo = ModeloRiesgo.cargar(cfg["rutas"]["mejor_modelo"])
@@ -127,9 +130,10 @@ def evaluar(cfg: dict | None = None) -> dict:
     sim = cfg["simulacion"]
     _, solicitudes, dist = construir_escenario(cfg)
     k = int(round(sim["fraccion_intervenida"] * sim["n_solicitudes"]))
-    res["simulacion"] = {"principal": simular(p, yte, dist, sim["reduccion_relativa"], k, sim["replicas"], sim["semilla"]),
-                         "sensibilidad_efecto": {str(r): simular(p, yte, dist, r, k, sim["replicas_sensibilidad"], sim["semilla"])
-                                                 for r in [0.15, 0.35, 0.50]},
+    principal = simular(p, yte, dist, sim["reduccion_relativa"], k, sim["replicas"], sim["semilla"])
+    sensibilidad = {str(r): simular(p, yte, dist, r, k, sim["replicas_sensibilidad"], sim["semilla"])
+                    for r in [0.15, 0.35, 0.50]}
+    res["simulacion"] = {"principal": principal, "sensibilidad_efecto": sensibilidad,
                          "millas_totales": float(dist.sum())}
     top = np.argsort(-p)[: int(0.2 * len(p))]
     res["simulacion"]["captura_top20"] = float(yte[top].sum() / yte.sum())

@@ -34,6 +34,8 @@ El análisis se organiza con los cuatro principios de la ética biomédica (auto
 
 **Mitigación implementada (post-procesamiento).** Umbrales por grupo de edad elegidos con predicciones fuera de muestra del entrenamiento, con el mismo objetivo de recall (70%) en cada grupo. En prueba, el recall de todos los grupos queda entre 70.3% y 74.0% (criterio de *igualdad de oportunidades*). El costo es explícito: el porcentaje total de citas señaladas pasa de 43.0% a 45.1% y la precisión global baja de 0.334 a 0.320. La mitigación viene **activada por defecto** en la interfaz, que permite desactivarla para comparar.
 
+**Métrica de equidad resumida:** diferencia de igualdad de oportunidades (máximo menos mínimo del recall entre grupos de edad): **0.603** con umbral único (90.9% frente a 30.6%) y **0.037** con umbrales por grupo (74.0% frente a 70.3%). La diferencia de AUC entre el grupo de 65 años o más y el resto es de 0.034.
+
 **Lo que la mitigación no resuelve:** el AUC menor en adultos mayores (0.707) persiste. Corregirlo requiere variables que el dataset no tiene (movilidad, apoyo de cuidadores, transporte).
 
 ## 3. Privacidad
