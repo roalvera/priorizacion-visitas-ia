@@ -53,3 +53,15 @@ def test_priorizar_lote_respeta_capacidad():
     marca = priorizar_lote(np.array([0.1, 0.9, 0.5, 0.2]), np.array([10, 1, 5, 50.0]), 0.5)
     assert marca.sum() == 2
     assert marca[3] and marca[2]     # 0.2*50=10 y 0.5*5=2.5 superan a 0.9*1 y 0.1*10
+
+
+def test_diagnostico_detecta_sobreajuste_y_subajuste():
+    from src.diagnosis import RegistroMetricas, cuantificar, diagnosticar
+
+    sobre, sub = RegistroMetricas("sobre"), RegistroMetricas("sub")
+    for i in range(1, 41):
+        sobre.registrar(i, train_loss=0.5 - 0.01 * i, val_loss=0.45 + 0.004 * max(0, i - 10), train_auc=0.9,
+                        val_auc=0.7, train_acc=0.9, val_acc=0.7)
+        sub.registrar(i, train_loss=0.49, val_loss=0.49, train_auc=0.6, val_auc=0.6, train_acc=0.8, val_acc=0.8)
+    assert diagnosticar(cuantificar(sobre, 0.2))[0] == "Overfitting"
+    assert diagnosticar(cuantificar(sub, 0.2))[0] == "Underfitting"
