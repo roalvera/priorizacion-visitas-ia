@@ -29,3 +29,10 @@ def test_error_si_inasistencias_superan_citas():
     at.number_input(key="in_faltas").set_value(3)
     at.button(key="FormSubmitter:formulario-Calcular riesgo").click().run()
     assert any("no pueden ser más" in e.value for e in at.error)
+
+
+def test_cambio_de_idioma_a_ingles():
+    at = AppTest.from_file(APP, default_timeout=120).run()
+    at.sidebar.radio(key="idioma").set_value("English").run()
+    assert not at.exception
+    assert at.title[0].value.startswith("🩺 Home health")
