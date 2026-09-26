@@ -12,6 +12,8 @@ Respuestas cortas y fundamentadas a las preguntas más probables. Cada una indic
 
 **5. ¿Qué aprendieron del análisis de sensibilidad?** Que la tasa de aprendizaje domina y que interactúa con el número de árboles (H = 0.135); que el resto es casi indiferente; y que la mejor configuración encontrada no es distinguible de la elegida (0.0003 de diferencia frente a 0.003 de ruido). Figuras 11 a 14.
 
+**5b. ¿Cómo diagnosticaron sobreajuste y subajuste (Semana 3)?** Con tracking árbol a árbol (`staged_predict_proba`) sobre una validación separada por paciente, curvas por tamaño de dataset y curvas de validación de `max_depth` y `learning_rate`, más reglas cuantitativas (brecha, subida de la pérdida de validación desde su mínimo y pérdida frente a un modelo sin información). El modelo complejo sin regularización sobreajusta, el de tocones con tasa 0.01 subajusta y la configuración final queda como óptima. Evidencia: `notebooks/03_modelado.ipynb` (figuras 21 a 24) y `src/diagnosis.py`.
+
 **6. ¿Por qué un umbral de 0.242 y no 0.5?** Con 20% de prevalencia pocas citas superan 0.5 y el recall era 1.7%. Una falsa alarma cuesta una llamada; una inasistencia no detectada cuesta un viaje completo. Por eso se prioriza el recall (70%).
 
 **7. ¿La mitigación por edad no es discriminación?** Es un ajuste para igualar la *cobertura* (igualdad de oportunidades): sin él, el grupo de 65 años o más recibía muchas menos confirmaciones que los jóvenes con el mismo tipo de riesgo real. El costo está documentado: precisión de 0.334 a 0.320 y 2 puntos más de citas señaladas.

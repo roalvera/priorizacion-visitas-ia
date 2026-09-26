@@ -3,7 +3,9 @@
 ![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.8-F7931E?logo=scikitlearn&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.64-FF4B4B?logo=streamlit&logoColor=white)
-![Pruebas](https://img.shields.io/badge/pruebas-14%20aprobadas-brightgreen)
+![Pruebas](https://img.shields.io/badge/pruebas-16%20aprobadas-brightgreen)
+![Estilo](https://img.shields.io/badge/estilo-PEP%208-blue)
+![Idiomas](https://img.shields.io/badge/interfaz-ES%20%7C%20EN-informational)
 ![Licencia código](https://img.shields.io/badge/c%C3%B3digo-MIT-green)
 ![Licencia datos](https://img.shields.io/badge/datos-CC%20BY--NC--SA%204.0-lightgrey)
 
@@ -50,7 +52,19 @@ No se usa ningún dato real de pacientes ni de ningún empleador. El componente 
 - **Preprocesamiento:** limpieza de errores de captura; historial del paciente **sin fuga temporal** (solo citas ya atendidas al agendar); partición 75/25 **por paciente**; frecuencia de barrio calculada solo con entrenamiento. Ver [`docs/analisis_datos.md`](docs/analisis_datos.md).
 - **Optimización:** rejilla con CV agrupada, análisis de sensibilidad de 68 configuraciones, ranking de importancia de hiperparámetros, dependencia parcial, interacciones (estadístico H), umbral elegido con predicciones fuera de muestra y verificación de calibración. Ver [`docs/optimizacion.md`](docs/optimizacion.md).
 - **Métricas:** AUC-ROC, AUC-PR, Brier, precisión, recall y F1 con umbral explícito; AUC por subgrupo con IC bootstrap por paciente; reducción de millas desperdiciadas en una simulación de Monte Carlo (2,000 réplicas).
+- **Diagnóstico de sobreajuste y subajuste (Semana 3):** tracking de métricas árbol a árbol, curvas de entrenamiento y validación, curvas por tamaño de dataset y por hiperparámetro, diagnóstico cuantitativo con umbrales explícitos y estrategias de mejora evaluadas. Ver [`notebooks/03_modelado.ipynb`](notebooks/03_modelado.ipynb) y la sección 1 de [`docs/optimizacion.md`](docs/optimizacion.md).
 - **Explicabilidad y equidad:** SHAP (global y por predicción) y umbrales por grupo de edad para igualar la cobertura.
+
+**Integración de las actividades del curso**
+
+| Actividad | Dónde se integra en el proyecto |
+|---|---|
+| Planificación y definición del problema | [`docs/planificacion.md`](docs/planificacion.md) |
+| Análisis exploratorio de datos | [`notebooks/01_exploracion.ipynb`](notebooks/01_exploracion.ipynb), [`docs/analisis_datos.md`](docs/analisis_datos.md) |
+| Semana 3: diagnóstico de overfitting/underfitting | [`notebooks/03_modelado.ipynb`](notebooks/03_modelado.ipynb), [`src/diagnosis.py`](src/diagnosis.py), [`docs/optimizacion.md`](docs/optimizacion.md#1-diagnóstico-de-sobreajuste-y-subajuste-semana-3) |
+| Workshop S5: optimización y sensibilidad de hiperparámetros | [`notebooks/04_optimizacion.ipynb`](notebooks/04_optimizacion.ipynb), [`src/optimization.py`](src/optimization.py), [`docs/optimizacion.md`](docs/optimizacion.md) |
+| Evaluación, explicabilidad y equidad | [`notebooks/05_evaluacion.ipynb`](notebooks/05_evaluacion.ipynb), [`docs/consideraciones_eticas.md`](docs/consideraciones_eticas.md) |
+| Despliegue con interfaz | [`app/app.py`](app/app.py), [`docs/manual_usuario.md`](docs/manual_usuario.md) |
 
 ## 4. Resultados
 
@@ -65,7 +79,7 @@ No se usa ningún dato real de pacientes ni de ningún empleador. El componente 
 | **Gradient Boosting final** | **0.741** | **0.377** | **0.142** |
 
 - Validación cruzada agrupada de 5 pliegues: AUC 0.735 ± 0.003.
-- Con el umbral de 0.242: recall 0.710, precisión 0.334, F1 0.454 (con 0.5 el recall era 0.017).
+- Con el umbral de 0.242: exactitud (accuracy) 0.655, recall 0.710, precisión 0.334, F1 0.454. Con el umbral por defecto de 0.5 la exactitud era 0.799, pero solo porque el modelo casi nunca predecía inasistencia (recall 0.017): en un problema desbalanceado la exactitud sola es engañosa.
 - Variable más influyente: la antelación de la cita, seguida de la edad (permutación y SHAP coinciden).
 - **Equidad:** con un umbral único, el sistema detectaba solo el 30.6% de las inasistencias de los adultos de 65 años o más; con umbrales por grupo, el recall de todos los grupos queda entre 70% y 74%.
 
@@ -104,7 +118,8 @@ pip install -r requirements.txt
 | `python -m src.evaluate` | Evalúa en prueba y guarda `results/metrics/evaluacion.json` | 1 min |
 | `python -m src.optimization` | Análisis de sensibilidad de hiperparámetros | 10 a 20 min |
 | `bash scripts/ejecutar_notebooks.sh` | Ejecuta los 5 notebooks en orden | 25 min |
-| `pytest -v` | Corre las 14 pruebas unitarias | 10 s |
+| `pytest -v` | Corre las 16 pruebas unitarias | 10 s |
+| `pycodestyle src app tests scripts` | Verifica el estilo PEP 8 (configuración en `setup.cfg`) | segundos |
 
 Los parámetros (rutas, semillas, rejillas, umbral objetivo, simulación) están en [`config.yaml`](config.yaml).
 
@@ -132,7 +147,13 @@ Aplicación Streamlit con cuatro pestañas:
 - **Historial de la sesión:** comparación de predicciones y exportación a CSV.
 - **Acerca del modelo:** métricas, equidad por grupo de edad y limitaciones.
 
-También incluye manejo de errores con mensajes claros, indicadores de carga, diseño adaptable a celular y tema claro u oscuro.
+También incluye manejo de errores con mensajes claros, indicadores de carga, ayudas emergentes (ⓘ), una guía "¿Cómo usar esta herramienta?" dentro de la app, **español e inglés**, diseño adaptable a celular y tema claro u oscuro.
+
+**Cómo usarla en 4 pasos**
+1. Abra la app y, si quiere, cambie el idioma en la barra lateral.
+2. En *Predicción individual* presione **Prueba con ejemplo** (o complete el formulario) y luego **Calcular riesgo**.
+3. Lea la probabilidad, la categoría, el umbral aplicado y el gráfico SHAP que explica el resultado.
+4. Para varias visitas, use *Priorizar un lote*: suba un CSV (o el lote de ejemplo) y descargue la lista ordenada.
 
 **Aplicación desplegada:** `https://<su-app>.streamlit.app` *(se completa al publicar en Streamlit Community Cloud)*
 
@@ -146,16 +167,16 @@ Guía paso a paso, solución de problemas y preguntas frecuentes: [`docs/manual_
 
 ```
 priorizacion-visitas-ia/
-├── README.md, requirements.txt, config.yaml, LICENSE, .gitignore
+├── README.md, requirements.txt, config.yaml, setup.cfg, LICENSE, .gitignore
 ├── docs/          Planificación, EDA, arquitectura, optimización, ética y manual de usuario
 ├── data/          raw/ (datos públicos), processed/ (datos limpios), README.md (fuentes y diccionario)
 ├── notebooks/     01 exploración, 02 preprocesamiento, 03 modelado, 04 optimización, 05 evaluación
-├── src/           data_processing, model, train, evaluate, optimization, simulation, utils
+├── src/           data_processing, model, train, evaluate, utils (requeridos) + diagnosis, optimization, simulation
 ├── models/        best_model.pkl, model_v1.pkl, README.md
-├── app/           app.py (Streamlit), requirements.txt, assets/ (ejemplos, estilos y capturas)
+├── app/           app.py (Streamlit), textos.py (español e inglés), requirements.txt, assets/ (ejemplos, estilos, capturas)
 ├── tests/         Pruebas de procesamiento, modelo e interfaz (pytest)
-├── results/       figures/ (20 gráficos), metrics/ (JSON y CSV), reports/ (guion del pitch y preparación)
-└── scripts/       Generación y ejecución de notebooks, código QR
+├── results/       figures/ (24 gráficos a 300 DPI), metrics/ (JSON y CSV), reports/ (guion del pitch y preparación)
+└── scripts/       Ejecución de los notebooks en orden y generación de códigos QR
 ```
 
 ## 8. Consideraciones éticas

@@ -24,7 +24,8 @@ Los programas de valoración de salud en el hogar (In-Home Assessments, IHA, y H
 | 5 | Optimizar hiperparámetros, umbral y calibración | `notebooks/04_optimizacion.ipynb`, `docs/optimizacion.md` |
 | 6 | Mitigar la brecha de equidad detectada | umbrales por grupo de edad en `src/model.py` |
 | 7 | Desplegar una interfaz utilizable | `app/app.py` |
-| 8 | Analizar implicaciones éticas | `docs/consideraciones_eticas.md` |
+| 8 | Diagnosticar sobreajuste y subajuste con curvas de aprendizaje | `notebooks/03_modelado.ipynb`, `src/diagnosis.py` |
+| 9 | Analizar implicaciones éticas | `docs/consideraciones_eticas.md` |
 
 **Preguntas de investigación.**
 1. ¿Es posible predecir el riesgo de no-show con desempeño aceptable usando solo datos públicos?
@@ -54,7 +55,7 @@ Cada visita fallida consume tiempo de viaje de personal clínico escaso. Cualqui
 |---|---|---|
 | 1 | Tema, marco teórico, literatura, objetivos | Cumplido. El tema se basó en una herramienta de asignación heurística previa. |
 | 2 | Limpieza de datos, EDA, arquitectura | Cumplido. Se detectó y corrigió una fuga temporal en las variables de historial: ahora solo usan citas ya atendidas al momento de agendar. |
-| 3 | Entrenamiento de modelos | Cumplido. Se cambió la partición aleatoria por una partición **por paciente**. |
+| 3 | Entrenamiento de modelos y diagnóstico de sobreajuste/subajuste (actividad de la Semana 3) | Cumplido. Se cambió la partición aleatoria por una partición **por paciente** y se aplicó al modelo el diagnóstico con curvas de entrenamiento, aprendizaje y validación. |
 | 4 | Motor de asignación y simulación | Cumplido con ajustes. Se reemplazó un archivo de ZIP de terceros por fuentes oficiales (NPI Registry, consulta del 18/09/2026, y Gazetteer 2023). |
 | 5 | Evaluación, optimización, sesgos | Cumplido. Se agregaron la política "solo distancia" y la re-ejecución de verificación (25/09/2026). |
 | 6 | Ética, video, entrega | Ampliado: análisis de sensibilidad de hiperparámetros, SHAP, mitigación de equidad, interfaz Streamlit, pruebas unitarias y documentación del repositorio. |

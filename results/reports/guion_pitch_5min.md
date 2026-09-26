@@ -20,7 +20,7 @@ Tres decisiones técnicas marcan la diferencia. Primera: el historial de cada pa
 
 [Diapositiva 4: ranking de hiperparámetros e interacción]
 
-"Evaluamos 68 configuraciones con validación cruzada por paciente. El hallazgo clave: el desempeño forma una meseta. La tasa de aprendizaje es de lejos el hiperparámetro más importante, e interactúa con el número de árboles. La mejor configuración de toda la búsqueda superó a la nuestra por tres diezmilésimas, menos que el ruido. El mayor desafío no fueron los hiperparámetros sino el umbral: con 0.5 el modelo detectaba solo el 2% de las inasistencias; con un umbral elegido fuera de la muestra, detecta el 71%."
+"Primero diagnosticamos el ajuste con curvas de aprendizaje: un modelo sin regularización sobreajusta desde el árbol 25, y uno demasiado simple subajusta; nuestra configuración queda con una brecha mínima. Luego evaluamos 68 configuraciones con validación cruzada por paciente. El hallazgo clave: el desempeño forma una meseta. La tasa de aprendizaje es de lejos el hiperparámetro más importante, e interactúa con el número de árboles. La mejor configuración de toda la búsqueda superó a la nuestra por tres diezmilésimas, menos que el ruido. El mayor desafío fue el umbral: con 0.5 el modelo detectaba solo el 2% de las inasistencias; con uno elegido fuera de la muestra, detecta el 71%."
 
 ## Bloque 4. La solución en acción (2:15 a 3:15) | R
 
