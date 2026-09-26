@@ -1,0 +1,4 @@
+.tarjeta {padding: 1rem 1.2rem; border-radius: 10px; background: rgba(127,127,127,0.08); margin-bottom: 0.8rem;}
+.tarjeta p {margin: 0.35rem 0;}
+div[data-testid="stMetricValue"] {font-size: 1.6rem;}
+@media (max-width: 640px) { .tarjeta h3 {font-size: 1.1rem;} }
