@@ -1,0 +1,56 @@
+{
+  "riesgo bajo": {
+    "descripcion": "Mujer de 45 años, cita para el mismo día, sin inasistencias previas.",
+    "valores": {
+      "sexo": "Femenino",
+      "edad": 45,
+      "barrio": "JARDIM CAMBURI",
+      "social": false,
+      "hta": false,
+      "dm": false,
+      "alc": false,
+      "disc": false,
+      "antelacion": 0,
+      "dia": "Martes",
+      "sms": false,
+      "previas": 3,
+      "faltas": 0
+    }
+  },
+  "riesgo alto": {
+    "descripcion": "Hombre de 23 años, cita agendada con 40 días de antelación, faltó a sus dos citas anteriores.",
+    "valores": {
+      "sexo": "Masculino",
+      "edad": 23,
+      "barrio": "ITARARÉ",
+      "social": true,
+      "hta": false,
+      "dm": false,
+      "alc": false,
+      "disc": false,
+      "antelacion": 40,
+      "dia": "Viernes",
+      "sms": true,
+      "previas": 2,
+      "faltas": 2
+    }
+  },
+  "adulto mayor": {
+    "descripcion": "Mujer de 72 años con hipertensión y diabetes, cita a 10 días, sin inasistencias previas. Compare el resultado con y sin el umbral por grupo de edad.",
+    "valores": {
+      "sexo": "Femenino",
+      "edad": 72,
+      "barrio": "MARIA ORTIZ",
+      "social": false,
+      "hta": true,
+      "dm": true,
+      "alc": false,
+      "disc": false,
+      "antelacion": 10,
+      "dia": "Lunes",
+      "sms": true,
+      "previas": 4,
+      "faltas": 0
+    }
+  }
+}
