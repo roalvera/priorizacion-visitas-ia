@@ -100,6 +100,7 @@ Cada requisito de la guía *Proyecto Final: Sistema de IA Integral* y dónde se 
 |---|---|---|
 | Guion del pitch con los 7 bloques y tiempos | `results/reports/guion_pitch_5min.md` | ✅ |
 | Preparación de respuestas | `results/reports/preparacion_preguntas.md` | ✅ |
+| Informe escrito completo (APA) | `results/reports/informe_proyecto_integrador.docx` | ✅ |
 | Código QR del repositorio y de la app | `python scripts/generar_qr.py <url_repo> <url_app>` | Pendiente (equipo) |
 | Diapositivas (8 a 10), grabación de al menos 720p con la app publicada | | Pendiente (equipo) |
 | Video de respuestas, en orden y numeradas | | Pendiente (equipo) |
