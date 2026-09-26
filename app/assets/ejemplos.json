@@ -1,8 +1,15 @@
 {
   "riesgo bajo": {
-    "descripcion": "Mujer de 45 años, cita para el mismo día, sin inasistencias previas.",
+    "etiqueta": {
+      "es": "riesgo bajo",
+      "en": "low risk"
+    },
+    "descripcion": {
+      "es": "Mujer de 45 años, cita para el mismo día, sin inasistencias previas.",
+      "en": "45-year-old woman, same-day appointment, no previous no-shows."
+    },
     "valores": {
-      "sexo": "Femenino",
+      "sexo": "F",
       "edad": 45,
       "barrio": "JARDIM CAMBURI",
       "social": false,
@@ -11,16 +18,23 @@
       "alc": false,
       "disc": false,
       "antelacion": 0,
-      "dia": "Martes",
+      "dia": 1,
       "sms": false,
       "previas": 3,
       "faltas": 0
     }
   },
   "riesgo alto": {
-    "descripcion": "Hombre de 23 años, cita agendada con 40 días de antelación, faltó a sus dos citas anteriores.",
+    "etiqueta": {
+      "es": "riesgo alto",
+      "en": "high risk"
+    },
+    "descripcion": {
+      "es": "Hombre de 23 años, cita agendada con 40 días de antelación, faltó a sus dos citas anteriores.",
+      "en": "23-year-old man, appointment booked 40 days ahead, missed his two previous appointments."
+    },
     "valores": {
-      "sexo": "Masculino",
+      "sexo": "M",
       "edad": 23,
       "barrio": "ITARARÉ",
       "social": true,
@@ -29,16 +43,23 @@
       "alc": false,
       "disc": false,
       "antelacion": 40,
-      "dia": "Viernes",
+      "dia": 4,
       "sms": true,
       "previas": 2,
       "faltas": 2
     }
   },
   "adulto mayor": {
-    "descripcion": "Mujer de 72 años con hipertensión y diabetes, cita a 10 días, sin inasistencias previas. Compare el resultado con y sin el umbral por grupo de edad.",
+    "etiqueta": {
+      "es": "adulto mayor",
+      "en": "older adult"
+    },
+    "descripcion": {
+      "es": "Mujer de 72 años con hipertensión y diabetes, cita a 10 días, sin inasistencias previas. Compare el resultado con y sin el umbral por grupo de edad.",
+      "en": "72-year-old woman with hypertension and diabetes, appointment in 10 days, no previous no-shows. Compare the result with and without the age-group threshold."
+    },
     "valores": {
-      "sexo": "Femenino",
+      "sexo": "F",
       "edad": 72,
       "barrio": "MARIA ORTIZ",
       "social": false,
@@ -47,7 +68,7 @@
       "alc": false,
       "disc": false,
       "antelacion": 10,
-      "dia": "Lunes",
+      "dia": 0,
       "sms": true,
       "previas": 4,
       "faltas": 0
