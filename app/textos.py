@@ -13,7 +13,8 @@ TEXTOS = {
             "presione **Calcular riesgo**.\n"
             "2. **Lote:** en la pestaña *Priorizar un lote* descargue la plantilla o use el lote de ejemplo, suba su "
             "CSV y descargue el resultado ordenado.\n"
-            "3. **Historial:** compare las predicciones de la sesión y expórtelas a CSV.\n"
+            "3. **Revisión e historial:** si no está de acuerdo con una predicción, use *Solicitar revisión*; en la "
+            "pestaña *Historial* compare las predicciones y descargue las solicitudes en CSV.\n"
             "4. **Acerca del modelo:** métricas, equidad y limitaciones.\n\n"
             "En la barra lateral puede cambiar el idioma, el tipo de umbral y la capacidad de confirmación. "
             "Pase el cursor sobre los íconos ⓘ para ver ayudas."),
@@ -101,6 +102,26 @@ TEXTOS = {
         "error_carga": ("No se pudo cargar el modelo o sus archivos de apoyo. Verifique que existan "
                         "`models/best_model.pkl` y `results/metrics/evaluacion.json` (ejecute `python -m src.train` "
                         "y `python -m src.evaluate`)."),
+        "rev_titulo": "⚖️ Solicitar revisión de esta predicción",
+        "rev_ayuda": ("Si cree que la predicción es incorrecta o injusta (por ejemplo, el paciente ya confirmó o tiene "
+                      "una barrera de acceso), registre una solicitud. Queda para la revisión humana del líder de "
+                      "programación; la predicción nunca reemplaza su criterio."),
+        "rev_motivo": "Motivo",
+        "rev_motivos": ["El paciente ya confirmó que asistirá", "El paciente tiene una barrera de acceso "
+                        "(transporte, teléfono, idioma)", "Los datos de la cita son incorrectos",
+                        "El riesgo parece demasiado alto", "El riesgo parece demasiado bajo", "Otro (explicar)"],
+        "rev_comentario": "Comentario (opcional)",
+        "rev_comentario_ayuda": "No escriba nombres ni datos que identifiquen al paciente.",
+        "rev_enviar": "Registrar solicitud de revisión",
+        "rev_error": "Si elige «Otro», explique el motivo en el comentario.",
+        "rev_ok": "Solicitud de revisión #{n} registrada. Puede verla y descargarla en la pestaña Historial.",
+        "rev_estado": "Pendiente de revisión humana",
+        "rev_hist_titulo": "Solicitudes de revisión",
+        "rev_hist_vacio": "No hay solicitudes de revisión en esta sesión.",
+        "rev_descargar": "Descargar solicitudes de revisión (CSV)",
+        "rev_hist_nota": ("En un despliegue real, cada solicitud llegaría a la cola de revisión del líder de "
+                          "programación y se auditaría cada trimestre. En este prototipo no se guarda nada en el "
+                          "servidor: descargue el CSV para enviarlo."),
         "detalle": "Detalle técnico: {e}",
     },
     "en": {
@@ -115,7 +136,8 @@ TEXTOS = {
             "**Calculate risk**.\n"
             "2. **Batch:** in the *Prioritize a batch* tab, download the template or use the example batch, upload "
             "your CSV and download the sorted result.\n"
-            "3. **History:** compare this session's predictions and export them to CSV.\n"
+            "3. **Review and history:** if you disagree with a prediction, use *Request a review*; in the *History* "
+            "tab compare predictions and download the requests as CSV.\n"
             "4. **About the model:** metrics, fairness and limitations.\n\n"
             "Use the sidebar to change the language, the threshold type and the confirmation capacity. "
             "Hover over the ⓘ icons for help."),
@@ -199,6 +221,26 @@ TEXTOS = {
         "error_carga": ("The model or its support files could not be loaded. Check that `models/best_model.pkl` and "
                         "`results/metrics/evaluacion.json` exist (run `python -m src.train` and "
                         "`python -m src.evaluate`)."),
+        "rev_titulo": "⚖️ Request a review of this prediction",
+        "rev_ayuda": ("If you believe the prediction is wrong or unfair (for example, the patient already confirmed or "
+                      "has an access barrier), log a request. It goes to human review by the scheduling lead; the "
+                      "prediction never replaces their judgment."),
+        "rev_motivo": "Reason",
+        "rev_motivos": ["The patient already confirmed attendance", "The patient has an access barrier "
+                        "(transportation, phone, language)", "The appointment data is incorrect",
+                        "The risk looks too high", "The risk looks too low", "Other (explain)"],
+        "rev_comentario": "Comment (optional)",
+        "rev_comentario_ayuda": "Do not write names or data that identify the patient.",
+        "rev_enviar": "Log review request",
+        "rev_error": "If you choose «Other», explain the reason in the comment.",
+        "rev_ok": "Review request #{n} logged. You can see and download it in the History tab.",
+        "rev_estado": "Pending human review",
+        "rev_hist_titulo": "Review requests",
+        "rev_hist_vacio": "No review requests in this session.",
+        "rev_descargar": "Download review requests (CSV)",
+        "rev_hist_nota": ("In a real deployment, each request would reach the scheduling lead's review queue and "
+                          "would be audited quarterly. This prototype stores nothing on the server: download the "
+                          "CSV to send it."),
         "detalle": "Technical detail: {e}",
         "variables": {
             "gender_f": "Female", "Age": "Age", "Scholarship": "Social program", "Hipertension": "Hypertension",

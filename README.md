@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.8-F7931E?logo=scikitlearn&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.64-FF4B4B?logo=streamlit&logoColor=white)
-![Pruebas](https://img.shields.io/badge/pruebas-16%20aprobadas-brightgreen)
+![Pruebas](https://img.shields.io/badge/pruebas-18%20aprobadas-brightgreen)
 ![Estilo](https://img.shields.io/badge/estilo-PEP%208-blue)
 ![Idiomas](https://img.shields.io/badge/interfaz-ES%20%7C%20EN-informational)
 ![Licencia código](https://img.shields.io/badge/c%C3%B3digo-MIT-green)
@@ -118,7 +118,7 @@ pip install -r requirements.txt
 | `python -m src.evaluate` | Evalúa en prueba y guarda `results/metrics/evaluacion.json` | 1 min |
 | `python -m src.optimization` | Análisis de sensibilidad de hiperparámetros | 10 a 20 min |
 | `bash scripts/ejecutar_notebooks.sh` | Ejecuta los 5 notebooks en orden | 25 min |
-| `pytest -v` | Corre las 16 pruebas unitarias | 10 s |
+| `pytest -v` | Corre las 18 pruebas unitarias | 25 s |
 | `pycodestyle src app tests scripts` | Verifica el estilo PEP 8 (configuración en `setup.cfg`) | segundos |
 
 Los parámetros (rutas, semillas, rejillas, umbral objetivo, simulación) están en [`config.yaml`](config.yaml).
@@ -144,7 +144,8 @@ print(modelo.clasificar(X))              # [1] -> confirmar primero
 Aplicación Streamlit con cuatro pestañas:
 - **Predicción individual:** formulario validado, tres ejemplos precargados, indicador de probabilidad, categoría de riesgo, umbral aplicado y explicación SHAP del caso.
 - **Priorizar un lote (CSV):** carga de archivo con validación por fila, plantilla descargable, lote de ejemplo, priorización por riesgo × distancia y descarga de resultados.
-- **Historial de la sesión:** comparación de predicciones y exportación a CSV.
+- **Canal de revisión humana (apelación):** en cada predicción, el botón *Solicitar revisión* registra un motivo y un comentario sin datos identificables; las solicitudes se descargan en CSV.
+- **Historial de la sesión:** comparación de predicciones, solicitudes de revisión y exportación a CSV.
 - **Acerca del modelo:** métricas, equidad por grupo de edad y limitaciones.
 
 También incluye manejo de errores con mensajes claros, indicadores de carga, ayudas emergentes (ⓘ), una guía "¿Cómo usar esta herramienta?" dentro de la app, **español e inglés**, diseño adaptable a celular y tema claro u oscuro.
@@ -189,6 +190,8 @@ La correspondencia completa entre cada requisito de la guía y el repositorio es
 - **Equidad:** brecha de cobertura en adultos de 65 años o más, **mitigada** con umbrales por grupo de edad (activados por defecto).
 - **Privacidad:** datos públicos y anónimos, sin PHI; la app no almacena nada. Un uso real exigiría HIPAA (y GDPR o CCPA según jurisdicción).
 - **Transparencia:** SHAP por predicción y advertencias sobre lo que *no* explica (el SMS no causa inasistencias).
+- **Responsabilidad:** decisión final humana, canal de revisión de predicciones en la app y plan de monitoreo; cumplimiento analizado frente a HIPAA, la Sección 1557 de la ACA, la CCPA, el GDPR y el AI Act de la UE.
+- **Impacto social:** análisis de stakeholders, riesgos y mitigaciones en [`results/reports/workshop_impacto_social.pdf`](results/reports/workshop_impacto_social.pdf).
 - **Advertencia de uso:** el riesgo sirve para **ordenar llamadas de confirmación**. No debe usarse para negar, retrasar ni cancelar atención, ni con fines comerciales.
 
 Análisis completo con los 8 apartados: [`docs/consideraciones_eticas.md`](docs/consideraciones_eticas.md).
@@ -219,7 +222,9 @@ Gracias a Joni Hoppen por publicar el dataset, a CMS y al U.S. Census Bureau por
 - Lundberg, S. M., y Lee, S.-I. (2017). A unified approach to interpreting model predictions. En *Advances in Neural Information Processing Systems* (Vol. 30, pp. 4765–4774).
 - Obermeyer, Z., Powers, B., Vogeli, C., y Mullainathan, S. (2019). Dissecting racial bias in an algorithm used to manage the health of populations. *Science, 366*(6464), 447–453. https://doi.org/10.1126/science.aax2342
 - Pedregosa, F., et al. (2011). Scikit-learn: Machine learning in Python. *Journal of Machine Learning Research, 12*, 2825–2830.
+- Reglamento (UE) 2024/1689 del Parlamento Europeo y del Consejo, de 13 de junio de 2024, por el que se establecen normas armonizadas en materia de inteligencia artificial. (2024). *Diario Oficial de la Unión Europea*, L 2024/1689. https://eur-lex.europa.eu/eli/reg/2024/1689/oj
 - Robotham, D., Satkunanathan, S., Reynolds, J., Stahl, D., y Wykes, T. (2016). Using digital notifications to improve attendance in clinic: Systematic review and meta-analysis. *BMJ Open, 6*(10), e012116. https://doi.org/10.1136/bmjopen-2016-012116
+- U.S. Department of Health and Human Services. (2024). Nondiscrimination in health programs and activities. *Federal Register, 89*(88), 37522–37703. https://www.federalregister.gov/d/2024-08711
 
 ## 12. Videos
 
