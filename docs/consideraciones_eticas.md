@@ -42,8 +42,11 @@ El análisis se organiza con los cuatro principios de la ética biomédica (auto
 
 - **Datos personales:** el dataset es público y anónimo (identificadores numéricos). No se usa ningún dato real de pacientes ni de la operación de ningún empleador, ni información protegida de salud (PHI) en el sentido de HIPAA.
 - **Datos de proveedores:** del NPI Registry solo se conservan los 15 **códigos postales** usados como sedes. Los registros individuales de los profesionales no se publican en el repositorio.
-- **Interfaz:** no guarda datos. El historial vive solo en la memoria de la sesión del navegador y se borra al cerrarla. No se piden nombres ni identificadores.
+- **Interfaz:** no guarda datos. El historial y las solicitudes de revisión viven solo en la memoria de la sesión del navegador y se borran al cerrarla. No se piden nombres ni identificadores, y el campo de comentario de las solicitudes de revisión advierte que no se escriban datos que identifiquen al paciente; el registro de eventos guarda solo el motivo, nunca el comentario.
 - **Regulación:** un despliegue real en EE. UU. requeriría cumplir la Regla de Privacidad y la Regla de Seguridad de HIPAA (acuerdos de asociado comercial, cifrado y control de acceso). Si hubiera usuarios o pacientes en California aplicaría también la CCPA/CPRA, y en la Unión Europea el GDPR, que clasifica los datos de salud como categoría especial (artículo 9) y exige base legal, minimización y evaluación de impacto (DPIA).
+- **No discriminación (EE. UU.):** la regla de 2024 de la Sección 1557 de la ACA (45 CFR § 92.210) obliga a las entidades de salud a identificar las herramientas de apoyo a la decisión que usan variables de edad, sexo, raza u otras características protegidas, y a mitigar su riesgo de discriminación (U.S. Department of Health and Human Services, 2024). Este modelo usa edad y sexo, por lo que un despliegue real exigiría inventariarlo y auditarlo; la mitigación por grupo de edad y el monitoreo propuesto responden a esa obligación. La Ley contra la Discriminación por Edad de 1975 refuerza el mismo principio en programas con fondos federales.
+- **AI Act de la UE:** el Reglamento (UE) 2024/1689 clasifica como de alto riesgo los sistemas que evalúan el acceso de las personas a servicios de salud. Este sistema no aplica a la UE y está diseñado para **informar el orden** de las confirmaciones, no para decidir el acceso; si se usara para conceder o negar visitas, pasaría a ser de alto riesgo.
+- Un despliegue real requeriría asesoría legal.
 
 ## 4. Transparencia y explicabilidad
 
@@ -61,10 +64,23 @@ El análisis se organiza con los cuatro principios de la ética biomédica (auto
 | **Quiénes se benefician** | Afiliados que reciben una visita efectiva, equipos de programación y NP (menos viajes inútiles). |
 | **Quiénes podrían perjudicarse** | Adultos mayores (sin la mitigación) y personas de barrios con alta inasistencia, si el sistema se usara para restringir acceso. |
 
+**Stakeholders.** El análisis completo de impacto social (workshop de la asignatura, en `results/reports/workshop_impacto_social.pdf`) identifica cinco grupos:
+
+| Stakeholder | Beneficio principal | Riesgo principal | Poder o voz |
+|---|---|---|---|
+| Afiliados (pacientes) | Visita confirmada a tiempo | Trato distinto según su riesgo; errores del modelo | Bajo |
+| Adultos mayores y afiliados de bajos ingresos | Igual cobertura de confirmación con la mitigación | Menor cobertura sin mitigación; el barrio actúa como indicador socioeconómico | Bajo |
+| Coordinadores de programación | Lista priorizada y explicada | Sesgo de automatización; más llamadas | Medio |
+| Nurse Practitioners | Menos viajes sin paciente | Uso de métricas para evaluarlos | Medio |
+| Organización | Más visitas con la misma dotación | Riesgo legal y reputacional | Alto |
+
+Los dos grupos con menos voz son los más expuestos; por eso la protección de sus intereses quedó en el diseño (umbrales por grupo, uso limitado a confirmar y canal de revisión) y no depende de que ellos la reclamen.
+
 ## 6. Responsabilidad
 
 - **Si el modelo falla**, la responsabilidad es de la organización que lo despliega y del equipo que lo valida, no del algoritmo. El sistema es de apoyo: el coordinador conserva la decisión final sobre cada visita.
 - **Mecanismos de accountability:** versión del modelo y métricas visibles en la app; modelos versionados (`model_v1.pkl`, `best_model.pkl`); configuración y semillas en `config.yaml`; registro de eventos en `results/reports/ejecucion.log`; pruebas automáticas.
+- **Canal de revisión (apelación), implementado:** cada predicción de la interfaz incluye la opción **Solicitar revisión**. El usuario elige un motivo (por ejemplo, el paciente ya confirmó o tiene una barrera de acceso) y puede agregar un comentario; la solicitud queda como *pendiente de revisión humana* y se descarga en CSV desde la pestaña *Historial*. En un despliegue real, esas solicitudes llegarían a la cola del líder de programación y se auditarían cada trimestre junto con las métricas de equidad.
 - **Plan de monitoreo propuesto para un uso real:**
   1. Mensualmente: AUC, Brier y recall por grupo de edad con los desenlaces reales.
   2. Alerta si el recall de algún grupo cae bajo 60% o si el Brier sube más de 10% sobre el valor de validación.
@@ -79,6 +95,7 @@ El análisis se organiza con los cuatro principios de la ética biomédica (auto
 | Negar, retrasar o cancelar visitas a pacientes de alto riesgo | Advertencia permanente en la app; la documentación restringe el uso a ordenar confirmaciones |
 | Sobreagendar citas contando con que ciertos pacientes faltarán, degradando su atención | Fuera del alcance declarado; se recomienda no usarlo para sobreagendamiento sin evaluación ética |
 | Perfilar barrios o grupos socioeconómicos | La app no permite consultar ni exportar riesgos agregados por barrio |
+| Aceptar sin cuestionar una predicción errónea | Canal **Solicitar revisión** en cada predicción y decisión final del coordinador |
 | Usar las probabilidades en decisiones de cobertura o precios de seguros | Prohibido por las limitaciones documentadas; además, la licencia del dataset es no comercial |
 
 ## 8. Limitaciones reconocidas
