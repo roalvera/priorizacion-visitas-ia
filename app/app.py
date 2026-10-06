@@ -73,6 +73,8 @@ PREVALENCIA = 0.202
 
 if "historial" not in st.session_state:
     st.session_state.historial = []
+if "revisiones" not in st.session_state:
+    st.session_state.revisiones = []
 
 
 def aplicar_ejemplo(nombre: str) -> None:
@@ -187,30 +189,67 @@ with tab1:
                         prob = float(MODELO.predecir_probabilidad(X)[0])
                         umbral = float(MODELO.umbrales_por_fila(X, mitigado)[0])
                         grupo = asignar_grupo_edad([edad], MODELO.grupos_edad, MODELO.etiquetas_grupos)[0]
-                    codigo, cat, color = categoria(prob, umbral)
-                    r1, r2 = st.columns([1, 1])
-                    with r1:
-                        st.plotly_chart(grafico_indicador(prob, umbral), width="stretch")
-                    with r2:
-                        tipo = f"{T['grupo_edad']} {T['grupos'].get(grupo, grupo)}" if mitigado else T["global"]
-                        st.markdown(f"<div class='tarjeta' style='border-left:6px solid {color}'>"
-                                    f"<h3 style='color:{color};margin:0'>{cat}</h3>"
-                                    f"<p>{T['prob']}: <b>{prob:.1%}</b> · {T['prob_asistir']}: "
-                                    f"{1 - prob:.1%}</p>"
-                                    f"<p>{T['umbral_aplicado']}: <b>{umbral:.1%}</b> ({tipo})</p>"
-                                    f"<p>{T['tasa_ref']}: {PREVALENCIA:.1%}</p></div>",
-                                    unsafe_allow_html=True)
-                        st.info(T["sug_alto"] if codigo == "alto" else T["sug_normal"])
-                    st.plotly_chart(grafico_shap(X), width="stretch")
-                    st.caption(T["shap_nota"])
+                    codigo, cat, _ = categoria(prob, umbral)
                     st.session_state.historial.append({"hora": datetime.now().strftime("%H:%M:%S"), "edad": edad,
                                                        "antelacion": antelacion, "sms": int(sms),
                                                        "probabilidad": round(prob, 4), "categoria": cat,
                                                        "umbral": round(umbral, 4)})
+                    # El resultado se guarda en la sesión para que siga visible al enviar una solicitud de revisión
+                    st.session_state.ultimo = {"registro": registro, "prob": prob, "umbral": umbral, "grupo": grupo,
+                                               "mitigado": mitigado, "n": len(st.session_state.historial)}
                     LOG.info("predicción individual: prob=%.3f categoría=%s", prob, codigo)
                 except Exception:
                     LOG.exception("error en predicción individual")
                     st.error(T["error_general"])
+
+    ultimo = st.session_state.get("ultimo")
+    if ultimo:
+        try:
+            X = registro_a_features(ultimo["registro"])
+            prob, umbral, grupo = ultimo["prob"], ultimo["umbral"], ultimo["grupo"]
+            codigo, cat, color = categoria(prob, umbral)
+            r1, r2 = st.columns([1, 1])
+            with r1:
+                st.plotly_chart(grafico_indicador(prob, umbral), width="stretch")
+            with r2:
+                tipo = f"{T['grupo_edad']} {T['grupos'].get(grupo, grupo)}" if ultimo["mitigado"] else T["global"]
+                st.markdown(f"<div class='tarjeta' style='border-left:6px solid {color}'>"
+                            f"<h3 style='color:{color};margin:0'>{cat}</h3>"
+                            f"<p>{T['prob']}: <b>{prob:.1%}</b> · {T['prob_asistir']}: "
+                            f"{1 - prob:.1%}</p>"
+                            f"<p>{T['umbral_aplicado']}: <b>{umbral:.1%}</b> ({tipo})</p>"
+                            f"<p>{T['tasa_ref']}: {PREVALENCIA:.1%}</p></div>",
+                            unsafe_allow_html=True)
+                st.info(T["sug_alto"] if codigo == "alto" else T["sug_normal"])
+            st.plotly_chart(grafico_shap(X), width="stretch")
+            st.caption(T["shap_nota"])
+
+            # Canal de revisión humana (apelación): el usuario puede objetar la predicción
+            with st.expander(T["rev_titulo"]):
+                st.caption(T["rev_ayuda"])
+                with st.form("form_revision", clear_on_submit=True):
+                    motivo = st.selectbox(T["rev_motivo"], list(range(len(T["rev_motivos"]))),
+                                          format_func=lambda i: T["rev_motivos"][i], key="rev_motivo")
+                    comentario = st.text_area(T["rev_comentario"], max_chars=300, key="rev_comentario",
+                                              help=T["rev_comentario_ayuda"])
+                    enviar_rev = st.form_submit_button(T["rev_enviar"])
+                if enviar_rev:
+                    if motivo == len(T["rev_motivos"]) - 1 and not comentario.strip():
+                        st.error(T["rev_error"])
+                    else:
+                        st.session_state.revisiones.append({
+                            "solicitud": len(st.session_state.revisiones) + 1,
+                            "hora": datetime.now().strftime("%H:%M:%S"),
+                            "prediccion": f"#{ultimo['n']}", "probabilidad": round(prob, 4),
+                            "categoria": cat, "umbral": round(umbral, 4),
+                            "motivo": T["rev_motivos"][motivo], "comentario": comentario.strip(),
+                            "estado": T["rev_estado"]})
+                        # Se registra el evento sin el texto del comentario (minimización de datos)
+                        LOG.info("solicitud de revisión registrada: motivo=%d prob=%.3f", motivo, prob)
+                        st.success(T["rev_ok"].format(n=len(st.session_state.revisiones)))
+        except Exception:
+            LOG.exception("error al mostrar el resultado")
+            st.error(T["error_general"])
 
 # --------------------------------------------------------------------------- pestaña 2
 with tab2:
@@ -286,7 +325,18 @@ with tab3:
                            "historial_predicciones.csv", "text/csv", width="stretch")
         if c2.button(T["borrar_hist"], width="stretch"):
             st.session_state.historial = []
+            st.session_state.revisiones = []
+            st.session_state.pop("ultimo", None)
             st.rerun()
+    st.subheader(T["rev_hist_titulo"])
+    if not st.session_state.revisiones:
+        st.info(T["rev_hist_vacio"])
+    else:
+        rev = pd.DataFrame(st.session_state.revisiones)
+        st.dataframe(rev, width="stretch", hide_index=True)
+        st.download_button(T["rev_descargar"], rev.to_csv(index=False).encode("utf-8"),
+                           "solicitudes_revision.csv", "text/csv", type="primary")
+        st.caption(T["rev_hist_nota"])
 
 # --------------------------------------------------------------------------- pestaña 4
 with tab4:
