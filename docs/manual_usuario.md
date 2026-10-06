@@ -103,7 +103,7 @@ Muestra qué hace el modelo, sus métricas en datos de prueba, la equidad por gr
 
 **¿Puedo usarla con pacientes reales?** No. Es un prototipo académico entrenado con datos públicos de otro país y otro tipo de cita. Un uso real exige reentrenarlo con datos autorizados y validarlo.
 
-**¿Qué significa el umbral por grupo de edad?** Con un solo umbral, el sistema detectaba solo el 31% de las inasistencias de los adultos mayores. El umbral por grupo iguala la cobertura (alrededor de 70% en todos los grupos). Se puede desactivar en la barra lateral para comparar.
+**¿Qué significa el umbral por grupo de edad?** Con un solo umbral, el sistema detectaba solo el 31% de las inasistencias de los adultos mayores. El umbral por grupo acerca la cobertura de todos los grupos (entre 70% y 74%), aunque no la vuelve idéntica. Se puede desactivar en la barra lateral para comparar.
 
 **¿Por qué el SMS aparece aumentando el riesgo?** Porque en los datos el SMS se enviaba sobre todo a citas agendadas con mucha antelación, que ya tienen más riesgo. El modelo refleja esa asociación; no significa que el recordatorio cause inasistencias.
 

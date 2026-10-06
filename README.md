@@ -53,7 +53,7 @@ No se usa ningún dato real de pacientes ni de ningún empleador. El componente 
 - **Optimización:** rejilla con CV agrupada, análisis de sensibilidad de 68 configuraciones, ranking de importancia de hiperparámetros, dependencia parcial, interacciones (estadístico H), umbral elegido con predicciones fuera de muestra y verificación de calibración. Ver [`docs/optimizacion.md`](docs/optimizacion.md).
 - **Métricas:** AUC-ROC, AUC-PR, Brier, precisión, recall y F1 con umbral explícito; AUC por subgrupo con IC bootstrap por paciente; reducción de millas desperdiciadas en una simulación de Monte Carlo (2,000 réplicas).
 - **Diagnóstico de sobreajuste y subajuste (Semana 3):** tracking de métricas árbol a árbol, curvas de entrenamiento y validación, curvas por tamaño de dataset y por hiperparámetro, diagnóstico cuantitativo con umbrales explícitos y estrategias de mejora evaluadas. Ver [`notebooks/03_modelado.ipynb`](notebooks/03_modelado.ipynb) y la sección 1 de [`docs/optimizacion.md`](docs/optimizacion.md).
-- **Explicabilidad y equidad:** SHAP (global y por predicción) y umbrales por grupo de edad para igualar la cobertura.
+- **Explicabilidad y equidad:** SHAP (global y por predicción) y umbrales por grupo de edad para reducir la brecha de cobertura.
 
 **Integración de las actividades del curso**
 

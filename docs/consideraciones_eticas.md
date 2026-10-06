@@ -69,7 +69,7 @@ El análisis se organiza con los cuatro principios de la ética biomédica (auto
 | Stakeholder | Beneficio principal | Riesgo principal | Poder o voz |
 |---|---|---|---|
 | Afiliados (pacientes) | Visita confirmada a tiempo | Trato distinto según su riesgo; errores del modelo | Bajo |
-| Adultos mayores y afiliados de bajos ingresos | Igual cobertura de confirmación con la mitigación | Menor cobertura sin mitigación; el barrio actúa como indicador socioeconómico | Bajo |
+| Adultos mayores y afiliados de bajos ingresos | Cobertura similar a la del resto con la mitigación | Menor cobertura sin mitigación; el barrio actúa como indicador socioeconómico | Bajo |
 | Coordinadores de programación | Lista priorizada y explicada | Sesgo de automatización; más llamadas | Medio |
 | Nurse Practitioners | Menos viajes sin paciente | Uso de métricas para evaluarlos | Medio |
 | Organización | Más visitas con la misma dotación | Riesgo legal y reputacional | Alto |

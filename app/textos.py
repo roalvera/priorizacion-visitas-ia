@@ -21,7 +21,7 @@ TEXTOS = {
         "config": "⚙️ Configuración", "idioma": "Idioma / Language",
         "mitigado": "Umbral ajustado por grupo de edad (recomendado)",
         "mitigado_ayuda": ("Usa un umbral por grupo de edad para que cada grupo tenga una cobertura similar. "
-                           "Corrige la brecha que el modelo muestra en adultos de 65 años o más."),
+                           "Reduce la brecha que el modelo muestra en adultos de 65 años o más."),
         "capacidad": "Capacidad de confirmación (% del lote)",
         "capacidad_ayuda": "Porcentaje de visitas del lote que el equipo puede confirmar por teléfono.",
         "modelo_pie": "Modelo: Gradient Boosting v{v} · AUC en prueba {auc:.3f}",
@@ -143,7 +143,7 @@ TEXTOS = {
             "Hover over the ⓘ icons for help."),
         "config": "⚙️ Settings", "idioma": "Idioma / Language",
         "mitigado": "Age-group adjusted threshold (recommended)",
-        "mitigado_ayuda": ("Uses one threshold per age group so every group gets similar coverage. It corrects the "
+        "mitigado_ayuda": ("Uses one threshold per age group so every group gets similar coverage. It reduces the "
                            "gap the model shows for adults aged 65 or older."),
         "capacidad": "Confirmation capacity (% of batch)",
         "capacidad_ayuda": "Share of the batch the team can confirm by phone.",
