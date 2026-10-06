@@ -16,7 +16,7 @@ Respuestas cortas y fundamentadas a las preguntas más probables. Cada una indic
 
 **6. ¿Por qué un umbral de 0.242 y no 0.5?** Con 20% de prevalencia pocas citas superan 0.5 y el recall era 1.7%. Una falsa alarma cuesta una llamada; una inasistencia no detectada cuesta un viaje completo. Por eso se prioriza el recall (70%).
 
-**7. ¿La mitigación por edad no es discriminación?** Es un ajuste para igualar la *cobertura* (igualdad de oportunidades): sin él, el grupo de 65 años o más recibía muchas menos confirmaciones que los jóvenes con el mismo tipo de riesgo real. El costo está documentado: precisión de 0.334 a 0.320 y 2 puntos más de citas señaladas.
+**7. ¿La mitigación por edad no es discriminación?** Es un ajuste para acercar la *cobertura* entre grupos (igualdad de oportunidades): sin él, el grupo de 65 años o más recibía muchas menos confirmaciones que los jóvenes con el mismo tipo de riesgo real. El costo está documentado: precisión de 0.334 a 0.320 y 2 puntos más de citas señaladas.
 
 **8. ¿Los resultados de la simulación son reales?** Las ubicaciones son reales y públicas y los riesgos y desenlaces provienen de citas reales; la asociación paciente-ubicación es sintética, y así se declara. El 25% de efecto de la confirmación es un supuesto de un metaanálisis, con análisis de sensibilidad entre 15% y 50%.
 
