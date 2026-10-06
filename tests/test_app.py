@@ -36,3 +36,24 @@ def test_cambio_de_idioma_a_ingles():
     at.sidebar.radio(key="idioma").set_value("English").run()
     assert not at.exception
     assert at.title[0].value.startswith("🩺 Home health")
+
+
+def test_solicitud_de_revision():
+    at = AppTest.from_file(APP, default_timeout=120).run()
+    at.button[1].click().run()
+    at.button(key="FormSubmitter:formulario-Calcular riesgo").click().run()
+    at.selectbox(key="rev_motivo").set_value(1)
+    at.button(key="FormSubmitter:form_revision-Registrar solicitud de revisión").click().run()
+    assert not at.exception
+    assert len(at.session_state.revisiones) == 1
+    assert any("registrada" in s.value for s in at.success)
+
+
+def test_revision_otro_exige_comentario():
+    at = AppTest.from_file(APP, default_timeout=120).run()
+    at.button[1].click().run()
+    at.button(key="FormSubmitter:formulario-Calcular riesgo").click().run()
+    at.selectbox(key="rev_motivo").set_value(5)
+    at.button(key="FormSubmitter:form_revision-Registrar solicitud de revisión").click().run()
+    assert len(at.session_state.revisiones) == 0
+    assert any("Otro" in e.value for e in at.error)

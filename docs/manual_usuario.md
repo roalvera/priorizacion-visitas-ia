@@ -42,6 +42,15 @@ La aplicación funciona en computadoras y celulares, en **español o inglés** (
 
 **Categorías:** *alto* si la probabilidad supera el umbral; *moderado* si está entre el 60% del umbral y el umbral; *bajo* en otro caso.
 
+**Solicitar revisión de una predicción.** Si cree que una predicción es incorrecta o injusta, abra **⚖️ Solicitar revisión de esta predicción** debajo del gráfico SHAP:
+
+![Solicitud de revisión](../app/assets/capturas/09_revision.png)
+
+| # | Elemento | Cómo usarlo |
+|---|---|---|
+| 1 | Formulario de revisión | Elija el motivo (por ejemplo, *el paciente ya confirmó* o *tiene una barrera de acceso*) y, si quiere, un comentario **sin nombres ni datos que identifiquen al paciente**. Si elige *Otro*, el comentario es obligatorio. |
+| 2 | Confirmación | La solicitud queda registrada como *pendiente de revisión humana*; puede verla y descargarla en la pestaña *Historial*. |
+
 ## 4. Priorizar un lote de visitas
 
 ![Priorización de un lote](../app/assets/capturas/04_lote.png)
@@ -56,7 +65,7 @@ Si el archivo incluye `millas`, el orden combina riesgo × distancia; si no, usa
 
 ## 5. Historial y comparación
 
-La pestaña **Historial de la sesión** guarda las predicciones individuales hechas mientras la página está abierta, las compara en un gráfico frente a su umbral y permite descargarlas en CSV o borrarlas.
+La pestaña **Historial de la sesión** guarda las predicciones individuales hechas mientras la página está abierta, las compara en un gráfico frente a su umbral y permite descargarlas en CSV o borrarlas **(1)**. Debajo aparece la tabla de **solicitudes de revisión**, que se descarga en CSV **(2)** para enviarla al responsable de revisarlas.
 
 ![Historial](../app/assets/capturas/05_historial.png)
 
@@ -81,6 +90,7 @@ Muestra qué hace el modelo, sus métricas en datos de prueba, la equidad por gr
 | "Fila N: ... debe ser 0 o 1" | Una variable sí/no tiene otro valor | Use 1 para "sí" y 0 para "no" |
 | "No se pudo leer el archivo" | El archivo no es CSV separado por comas | Guárdelo como CSV (UTF-8) desde Excel |
 | "No se pudo cargar el modelo..." | Faltan archivos del modelo en una instalación local | Ejecute `python -m src.train` y `python -m src.evaluate` |
+| "Si elige «Otro», explique el motivo en el comentario" | Se eligió el motivo *Otro* sin comentario | Escriba brevemente el motivo |
 | La app tarda en abrir | Primera carga del modelo en el servidor gratuito | Espere unos segundos; las siguientes consultas son inmediatas |
 
 ![Ejemplo de mensaje de error](../app/assets/capturas/03_error_validacion.png)
@@ -88,6 +98,8 @@ Muestra qué hace el modelo, sus métricas en datos de prueba, la equidad por gr
 ## 9. Preguntas frecuentes
 
 **¿La aplicación guarda los datos que ingreso?** No. Todo se procesa en memoria y se borra al cerrar la página.
+
+**¿Qué pasa si no estoy de acuerdo con una predicción?** Usted decide siempre. Además, puede registrar una **solicitud de revisión** con el motivo; en un despliegue real llegaría al líder de programación, que la revisa y la incluye en la auditoría trimestral.
 
 **¿Puedo usarla con pacientes reales?** No. Es un prototipo académico entrenado con datos públicos de otro país y otro tipo de cita. Un uso real exige reentrenarlo con datos autorizados y validarlo.
 

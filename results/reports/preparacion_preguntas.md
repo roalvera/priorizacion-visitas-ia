@@ -26,4 +26,6 @@ Respuestas cortas y fundamentadas a las preguntas más probables. Cada una indic
 
 **11. ¿Quién es responsable si falla?** La organización que lo despliega; el sistema es de apoyo y el coordinador decide. Hay un plan de monitoreo con alertas por grupo de edad en `docs/consideraciones_eticas.md`.
 
+**11b. ¿Hay un proceso de apelación?** Sí: cada predicción de la app tiene *Solicitar revisión*, con motivos predefinidos y un comentario sin datos identificables; la solicitud queda pendiente de revisión humana y se descarga en CSV. En producción llegaría al líder de programación y entraría en la auditoría trimestral. Lo agregamos tras el workshop de impacto social, que mostró que faltaba ese mecanismo.
+
 **12. ¿Por qué Streamlit?** Permite una interfaz completa en Python, con despliegue gratuito, y el mismo código del modelo (`src/`) se reutiliza sin duplicarlo.
