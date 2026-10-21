@@ -81,11 +81,13 @@ No se usa ningún dato real de pacientes ni de ningún empleador. El componente 
 - Validación cruzada agrupada de 5 pliegues: AUC 0.735 ± 0.003.
 - Con el umbral de 0.242: exactitud (accuracy) 0.655, recall 0.710, precisión 0.334, F1 0.454. Con el umbral por defecto de 0.5 la exactitud era 0.799, pero solo porque el modelo casi nunca predecía inasistencia (recall 0.017): en un problema desbalanceado la exactitud sola es engañosa.
 - Variable más influyente: la antelación de la cita, seguida de la edad (permutación y SHAP coinciden).
-- **Equidad:** con un umbral único, el sistema detectaba solo el 30.6% de las inasistencias de los adultos de 65 años o más; con umbrales por grupo, el recall de todos los grupos queda entre 70% y 74%.
+- **Equidad:** con un umbral único, el sistema detectaba solo el 30.6% de las inasistencias de los adultos de 65 años o más; con umbrales por grupo, el recall de todos los grupos de edad queda entre 70% y 74%. Por sexo no hay brecha (recall de 70.9% y 71.1%), y los grupos socialmente más vulnerables (Bolsa Família y barrios de vulnerabilidad alta) reciben **más** cobertura, no menos. AUC y recall con IC 95% por edad, sexo y proxies socioeconómicos en [`docs/consideraciones_eticas.md`](docs/consideraciones_eticas.md).
 
 ![Curvas ROC](results/figures/09_roc.png)
 
-**Sistema completo (simulación: priorizar el 20% de 300 visitas en Ohio; supuesto de 25% menos no-show por confirmación)**
+**Sistema completo (beneficio simulado: priorizar el 20% de 300 visitas en Ohio; supuesto de 25% menos no-show por confirmación)**
+
+El conjunto de datos no trae distancias: las solicitudes se ubican en centroides reales de códigos postales de Ohio (Census Bureau) y las sedes en códigos postales reales de NP (NPI Registry); a cada solicitud se le asigna, en cada réplica, el riesgo y el desenlace de una cita real de prueba. Esa asociación es sintética, por lo que el resultado es simulado, no observado.
 
 | Política | Reducción de millas desperdiciadas (IC 95%) |
 |---|---|
@@ -95,7 +97,7 @@ No se usa ningún dato real de pacientes ni de ningún empleador. El componente 
 | **Riesgo × distancia** | **12.6% (9.5 a 15.7)** |
 | Cota óptima (conoce el desenlace) | 24.8% (23.6 a 25.0) |
 
-El aporte del modelo es de unos 3.7 puntos sobre la mejor política sin modelo. **Dónde funciona peor:** dentro de un mismo tramo de antelación el AUC baja a 0.59 a 0.68 (el modelo se apoya mucho en la antelación) y en adultos mayores es 0.707. Análisis completo en [`notebooks/05_evaluacion.ipynb`](notebooks/05_evaluacion.ipynb).
+**Sensibilidad al supuesto del 25%:** con 10% de efecto, riesgo × distancia reduce 5.0% (3.9 a 6.2) y solo distancia 3.5%; con 40%, 20.0% (15.5 a 24.8) y 14.2%. El orden de las políticas no cambia, porque la reducción es proporcional al efecto supuesto. El aporte del modelo es de unos 3.7 puntos sobre la mejor política sin modelo (con 25%). **Dónde funciona peor:** dentro de un mismo tramo de antelación el AUC baja a 0.59 a 0.68 (el modelo se apoya mucho en la antelación) y en adultos mayores es 0.707. Análisis completo en [`notebooks/05_evaluacion.ipynb`](notebooks/05_evaluacion.ipynb).
 
 ## 5. Instalación y uso
 
@@ -146,7 +148,7 @@ Aplicación Streamlit con cuatro pestañas:
 - **Priorizar un lote (CSV):** carga de archivo con validación por fila, plantilla descargable, lote de ejemplo, priorización por riesgo × distancia y descarga de resultados.
 - **Canal de revisión humana (apelación):** en cada predicción, el botón *Solicitar revisión* registra un motivo y un comentario sin datos identificables; las solicitudes se descargan en CSV.
 - **Historial de la sesión:** comparación de predicciones, solicitudes de revisión y exportación a CSV.
-- **Acerca del modelo:** métricas, equidad por grupo de edad y limitaciones.
+- **Acerca del modelo:** métricas, equidad por grupo de edad, por sexo y por indicadores socioeconómicos, y limitaciones.
 
 También incluye manejo de errores con mensajes claros, indicadores de carga, ayudas emergentes (ⓘ), una guía "¿Cómo usar esta herramienta?" dentro de la app, **español e inglés**, diseño adaptable a celular y tema claro u oscuro.
 
@@ -187,7 +189,8 @@ La correspondencia completa entre cada requisito de la guía y el repositorio es
 ## 8. Consideraciones éticas
 
 - **Sesgos:** datos de otro país y otro tipo de cita; menos datos de adultos mayores; el barrio y el programa social funcionan como indicadores socioeconómicos.
-- **Equidad:** brecha de cobertura en adultos de 65 años o más, **mitigada** con umbrales por grupo de edad (activados por defecto).
+- **Equidad:** brecha de cobertura en adultos de 56 a 64 y de 65 años o más, **mitigada** con umbrales por grupo de edad (activados por defecto), con justificación explícita frente a la Sección 1557 y la Ley contra la Discriminación por Edad; evaluada también por sexo y por proxies socioeconómicos.
+- **Transferencia de dominio:** riesgo prioritario; mitigación con reentrenamiento en datos del programa, piloto en sombra y criterios de aprobación antes de cualquier uso real.
 - **Privacidad:** datos públicos y anónimos, sin PHI; la app no almacena nada. Un uso real exigiría HIPAA (y GDPR o CCPA según jurisdicción).
 - **Transparencia:** SHAP por predicción y advertencias sobre lo que *no* explica (el SMS no causa inasistencias).
 - **Responsabilidad:** decisión final humana, canal de revisión de predicciones en la app y plan de monitoreo; cumplimiento analizado frente a HIPAA, la Sección 1557 de la ACA, la CCPA, el GDPR y el AI Act de la UE.
