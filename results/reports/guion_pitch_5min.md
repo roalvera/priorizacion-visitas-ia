@@ -44,7 +44,7 @@ Y si ingreso más inasistencias que citas previas, la app lo detecta y explica e
 
 [Diapositiva 7: barras de recall por edad antes y después, y una línea con el resultado por sexo y por nivel socioeconómico]
 
-"En ética, el sesgo principal es por edad: con un umbral único detectábamos solo el 31% de las inasistencias de los adultos mayores, justo la población de Medicare. Lo mitigamos con umbrales por grupo de edad: todos quedan entre 70 y 74%, y la edad solo decide quién recibe primero una llamada de apoyo. Por sexo no hay brecha, y los grupos vulnerables reciben más cobertura. El impacto esperado es más visitas efectivas con el mismo personal; el riesgo es usarlo para negar atención, y la app lo prohíbe. Reconocemos límites: el AUC menor en mayores persiste y, entrenado en Brasil, debe validarse en Estados Unidos."
+"En ética, el sesgo principal es por edad: con un umbral único detectábamos solo el 31% de las inasistencias de los adultos mayores, justo la población de Medicare. Lo mitigamos con umbrales por grupo de edad: todos quedan entre 70 y 74%, y la edad solo decide quién recibe primero una llamada de apoyo. Por sexo no hay brecha, y los grupos vulnerables reciben más cobertura. El impacto esperado es más visitas efectivas con el mismo personal; el riesgo es usarlo para negar atención, y la app advierte que no se use así. Reconocemos límites: el AUC menor en mayores persiste y, entrenado en Brasil, debe validarse en Estados Unidos."
 
 ## Bloque 7. Cierre (4:45 a 5:00) | R y J
 
