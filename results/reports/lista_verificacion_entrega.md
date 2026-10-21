@@ -60,6 +60,7 @@ Cada requisito de la guía *Proyecto Final: Sistema de IA Integral* y dónde se 
 | Valorado: historial y comparación | Pestaña *Historial de la sesión* | ✅ |
 | Valorado: visualizaciones interactivas | Plotly | ✅ |
 | Valorado por el workshop de ética: canal de apelación | Botón *Solicitar revisión* en cada predicción, con descarga de solicitudes | ✅ |
+| Sugerencia de la docente (workshop): equidad por sexo y proxies socioeconómicos | Tabla con AUC y recall [IC 95%] por sexo, Bolsa Família y vulnerabilidad del barrio en *Acerca del modelo* | ✅ |
 | Instrucciones dentro de la app | Desplegable "¿Cómo usar esta herramienta?" y ayudas ⓘ | ✅ |
 | Aplicación publicada | Streamlit Community Cloud | Pendiente (equipo) |
 
@@ -71,7 +72,7 @@ Cada requisito de la guía *Proyecto Final: Sistema de IA Integral* y dónde se 
 | analisis_datos.md | Dataset, estadísticas, 8 gráficos (piden 5 a 6), patrones, correlaciones, outliers, decisiones de preprocesamiento, faltantes y desbalance | ✅ |
 | arquitectura.md | Modelo y justificación, hiperparámetros, diagrama de flujo, pipeline, tecnologías con versiones | ✅ |
 | optimizacion.md | Diagnóstico de la Semana 3; proceso del Workshop S5; rangos; sensibilidad; dependencia parcial; ranking; interacciones; configuración final; antes y después | ✅ |
-| consideraciones_eticas.md | Los 8 apartados: sesgos, equidad (métricas y mitigación implementada), privacidad (HIPAA, GDPR, CCPA), explicabilidad (SHAP), impacto, responsabilidad y monitoreo, uso dual, limitaciones | ✅ |
+| consideraciones_eticas.md | Los 8 apartados: sesgos, equidad (métricas por edad, sexo y proxies socioeconómicos, mitigación implementada y justificación del uso de la edad), privacidad (HIPAA, GDPR, CCPA), explicabilidad (SHAP), impacto, responsabilidad y monitoreo, uso dual, limitaciones | ✅ |
 | manual_usuario.md | Guía paso a paso, capturas anotadas, cada funcionalidad, solución de problemas, preguntas frecuentes, contacto | ✅ |
 
 ## 4. Código fuente (10%)
@@ -103,6 +104,7 @@ Cada requisito de la guía *Proyecto Final: Sistema de IA Integral* y dónde se 
 | Preparación de respuestas | `results/reports/preparacion_preguntas.md` | ✅ |
 | Informe escrito completo (APA) | `results/reports/informe_proyecto_integrador.docx` | ✅ |
 | Workshop de impacto social y responsabilidad | `results/reports/workshop_impacto_social.pdf` | ✅ |
+| Observaciones de la docente al workshop (95/100) | Corregidas en el workshop, el informe y el repositorio: beneficio de la simulación presentado como simulado y con origen de la distancia; sensibilidad 10%, 25% y 40%; grupos de edad consistentes (56 a 64 y 65 o más); AUC y recall con IC por sexo y proxies socioeconómicos; transferencia de dominio como riesgo prioritario con mitigación; justificación del uso de la edad frente a la norma de no discriminación; alcance de la cifra de 23%; efectividades medidas frente a esperadas | ✅ |
 | Código QR del repositorio y de la app | `python scripts/generar_qr.py <url_repo> <url_app>` | Pendiente (equipo) |
 | Diapositivas (8 a 10), grabación de al menos 720p con la app publicada | | Pendiente (equipo) |
 | Video de respuestas, en orden y numeradas | | Pendiente (equipo) |

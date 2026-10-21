@@ -58,6 +58,7 @@ simulacion:
   reduccion_relativa: 0.25
   replicas: 2000
   replicas_sensibilidad: 1000
+  reducciones_sensibilidad: [0.10, 0.25, 0.40]   # análisis de sensibilidad del supuesto del 25%
   semilla: 2026
   semilla_solicitudes: 11
   # Sedes sorteadas en la consulta al NPI Registry del 18/09/2026 (ver data/README.md)

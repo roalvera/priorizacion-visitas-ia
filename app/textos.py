@@ -87,6 +87,13 @@ TEXTOS = {
         "equidad": "**Equidad por grupo de edad (conjunto de prueba)**",
         "col_grupo": "Grupo", "col_citas": "Citas", "col_rg": "Recall (umbral global)",
         "col_rm": "Recall (umbral por grupo)",
+        "equidad_otros": "**Equidad por sexo y por indicadores socioeconómicos (conjunto de prueba)**",
+        "col_auc_ic": "AUC [IC 95%]",
+        "equidad_otros_nota": (
+            "IC 95% por bootstrap por paciente (300 remuestreos). Los umbrales por grupo son por edad; aquí se muestra "
+            "su efecto en otros grupos. Bolsa Família es el programa social de Brasil. La vulnerabilidad del barrio es "
+            "el tercil de la proporción de pacientes con Bolsa Família en el barrio, calculada con el entrenamiento. "
+            "Los grupos socialmente más vulnerables no reciben menos cobertura: reciben más confirmaciones."),
         "limitaciones": "**Limitaciones y advertencias**",
         "lim_texto": (
             "- Entrenado con citas ambulatorias de Brasil (2016), **no** con visitas domiciliarias de Estados Unidos: "
@@ -165,7 +172,12 @@ TEXTOS = {
         "calculando": "Calculating risk...",
         "cat": {"alto": "High risk", "moderado": "Moderate risk", "bajo": "Low risk"},
         "prob": "No-show probability", "prob_asistir": "attendance probability",
-        "grupos": {"0 a 18": "0 to 18", "19 a 35": "19 to 35", "36 a 55": "36 to 55", "56 a 64": "56 to 64",
+        "grupos": {"Mujeres": "Women", "Hombres": "Men", "Con Bolsa Família": "With Bolsa Família",
+                   "Sin Bolsa Família": "Without Bolsa Família",
+                   "Barrios de vulnerabilidad alta": "High-vulnerability neighborhoods",
+                   "Barrios de vulnerabilidad media": "Medium-vulnerability neighborhoods",
+                   "Barrios de vulnerabilidad baja": "Low-vulnerability neighborhoods",
+                   "0 a 18": "0 to 18", "19 a 35": "19 to 35", "36 a 55": "36 to 55", "56 a 64": "56 to 64",
                    "65 o más": "65 or older"},
         "umbral_aplicado": "Threshold applied", "grupo_edad": "age group", "global": "global",
         "tasa_ref": "Average no-show rate in the data",
@@ -207,6 +219,13 @@ TEXTOS = {
         "equidad": "**Fairness by age group (test set)**",
         "col_grupo": "Group", "col_citas": "Appointments", "col_rg": "Recall (global threshold)",
         "col_rm": "Recall (group threshold)",
+        "equidad_otros": "**Fairness by sex and by socioeconomic proxies (test set)**",
+        "col_auc_ic": "AUC [95% CI]",
+        "equidad_otros_nota": (
+            "95% CI from a patient-level bootstrap (300 resamples). Group thresholds are set by age; this table shows "
+            "their effect on other groups. Bolsa Família is Brazil's social program. Neighborhood vulnerability is the "
+            "tercile of the share of Bolsa Família patients in the neighborhood, computed on the training set. "
+            "The most socially vulnerable groups do not get less coverage: they get more confirmations."),
         "limitaciones": "**Limitations and warnings**",
         "lim_texto": (
             "- Trained on outpatient appointments from Brazil (2016), **not** on US home visits: the figures do not "
