@@ -6,7 +6,7 @@ Ritmo de referencia: unas 140 palabras por minuto. **R** = Romel, **J** = Jhon H
 
 [Diapositiva 1: título, nombres, logo UEES]
 
-"Somos Romel Vera y Jhon Henry Quimi, y presentamos un sistema de IA para priorizar visitas domiciliarias de salud. En los programas de valoración en el hogar de Medicare y Medicaid, cerca de una de cada cinco visitas termina en inasistencia, y el personal se asigna solo por cercanía. Cada visita fallida es un viaje perdido de una enfermera especializada. Nuestra pregunta: ¿puede un modelo de riesgo decidir a quién confirmar primero y reducir ese desperdicio?"
+"Somos Romel Vera y Jhon Henry Quimi, y presentamos un sistema de IA para priorizar visitas domiciliarias de salud. En los programas de valoración en el hogar de Medicare y Medicaid, parte de las visitas termina en inasistencia, y el personal se asigna solo por cercanía. Cada visita fallida es un viaje perdido de una enfermera especializada. Nuestra pregunta: ¿puede un modelo de riesgo decidir a quién confirmar primero y reducir ese desperdicio?"
 
 ## Bloque 2. Datos y metodología (0:30 a 1:30) | J
 
@@ -44,13 +44,13 @@ Y si ingreso más inasistencias que citas previas, la app lo detecta y explica e
 
 [Diapositiva 7: barras de recall por edad, antes y después]
 
-"El hallazgo ético más importante: con un umbral único, el sistema detectaba solo el 31% de las inasistencias de los adultos mayores, justo la población de Medicare. Lo mitigamos con umbrales por grupo de edad: ahora todos los grupos están entre 70 y 74% de cobertura. Por sexo no hay brecha, y los grupos más vulnerables reciben más cobertura, no menos. Además, la app advierte que el riesgo solo sirve para ordenar llamadas, nunca para negar ni retrasar atención. Y SHAP explica al modelo, no causas: el SMS parece aumentar el riesgo solo porque se envía a citas lejanas."
+"El hallazgo ético más importante: con un umbral único, el sistema detectaba solo el 31% de las inasistencias de los adultos mayores, justo la población de Medicare. Lo corregimos con umbrales por grupo de edad: ahora todos los grupos están entre 70 y 74%. Usar la edad así es una corrección: solo decide quién recibe primero una llamada de apoyo y nunca quita una visita. Por sexo no hay brecha, y los grupos más vulnerables reciben más cobertura, no menos. El riesgo sirve para ordenar llamadas, nunca para negar atención, y SHAP explica al modelo, no causas."
 
 ## Bloque 7. Cierre (4:45 a 5:00) | R y J
 
 [Diapositiva 8: QR del repositorio y de la app]
 
-"Logramos un sistema completo, reproducible y responsable. El siguiente paso es reentrenarlo con datos reales de un programa y medir con un ensayo el efecto real de la confirmación. Todo está en nuestro repositorio y en la app: escaneen el código QR. Gracias."
+"Logramos un sistema completo, reproducible y responsable. El siguiente paso es validarlo con datos reales de un programa y medir con un ensayo el efecto real de la confirmación. Todo está en nuestro repositorio y en la app: escaneen el código QR. Gracias."
 
 ---
 
