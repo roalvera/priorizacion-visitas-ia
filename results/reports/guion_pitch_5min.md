@@ -38,7 +38,7 @@ Y si ingreso más inasistencias que citas previas, la app lo detecta y explica e
 
 [Diapositiva 5: tabla de modelos; diapositiva 6: gráfico de las cinco políticas]
 
-"En 27 mil citas de pacientes nunca vistos, el AUC es 0.741, frente a 0.702 del modelo que solo usa la antelación, con probabilidades bien calibradas. En una simulación con geografía real de Ohio, porque los datos no traen distancias, priorizar por riesgo por distancia redujo el desplazamiento desperdiciado un 12.6%, frente a 8.9% de usar solo la distancia y 5% al azar; es un beneficio simulado, y con 10% o 40% de efecto de la confirmación va de 5% a 20%, siempre en el mismo orden. Somos honestos con los límites: el modelo se apoya mucho en la antelación, y dentro de un mismo tramo de antelación discrimina poco."
+"En 27 mil citas de pacientes nunca vistos, el AUC es 0.741, frente a 0.702 del modelo que solo usa la antelación, y las probabilidades están bien calibradas. Como los datos no traen distancias, simulamos con geografía real de Ohio: priorizar por riesgo por distancia redujo el desplazamiento desperdiciado un 12.6%, frente a 8.9% con solo la distancia y 5% al azar. Es un resultado simulado: con 10% o 40% de efecto de la confirmación va de 5% a 20%, siempre en el mismo orden. Su límite: se apoya mucho en la antelación."
 
 ## Bloque 6. Consideraciones éticas (4:00 a 4:45) | R
 

@@ -15,7 +15,7 @@ Cada requisito de la guía *Proyecto Final: Sistema de IA Integral* y dónde se 
 | src/: `__init__`, data_processing, model, train, evaluate, utils | `src/` (más diagnosis, optimization, simulation) | ✅ |
 | models/: best_model.pkl, model_v1.pkl, README.md | `models/` | ✅ |
 | app/: app.py, requirements.txt, assets/ | `app/` | ✅ |
-| tests/: test_data_processing, test_model, test_app | `tests/` (18 pruebas) | ✅ |
+| tests/: test_data_processing, test_model, test_app, test_evaluacion | `tests/` (21 pruebas) | ✅ |
 | results/: figures, metrics, reports | `results/` | ✅ |
 | Repositorio **público** | GitHub | Pendiente (equipo) |
 
@@ -87,7 +87,7 @@ Cada requisito de la guía *Proyecto Final: Sistema de IA Integral* y dónde se 
 | Commits descriptivos, ramas y tags | `main`, `develop`, 5 ramas de funcionalidades, tags `v1.0.0` y `v1.1.0` | ✅ |
 | Commits frecuentes de ambos integrantes | Historial en GitHub | Pendiente (equipo) |
 | requirements.txt con versiones | raíz y `app/` | ✅ |
-| 3 a 5 pruebas como mínimo, documentación de cómo ejecutarlas | 18 pruebas; `pytest -v` en el README | ✅ |
+| 3 a 5 pruebas como mínimo, documentación de cómo ejecutarlas | 21 pruebas; `pytest -v` en el README | ✅ |
 
 ## 5. Actividades del curso integradas
 

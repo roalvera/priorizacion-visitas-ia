@@ -97,7 +97,7 @@ El conjunto de datos no trae distancias: las solicitudes se ubican en centroides
 | **Riesgo × distancia** | **12.6% (9.5 a 15.7)** |
 | Cota óptima (conoce el desenlace) | 24.8% (23.6 a 25.0) |
 
-**Sensibilidad al supuesto del 25%:** con 10% de efecto, riesgo × distancia reduce 5.0% (3.9 a 6.2) y solo distancia 3.5%; con 40%, 20.0% (15.5 a 24.8) y 14.2%. El orden de las políticas no cambia, porque la reducción es proporcional al efecto supuesto. El aporte del modelo es de unos 3.7 puntos sobre la mejor política sin modelo (con 25%). **Dónde funciona peor:** dentro de un mismo tramo de antelación el AUC baja a 0.59 a 0.68 (el modelo se apoya mucho en la antelación) y en adultos mayores es 0.707. Análisis completo en [`notebooks/05_evaluacion.ipynb`](notebooks/05_evaluacion.ipynb).
+**Sensibilidad al supuesto del 25%:** con 10% de efecto, riesgo × distancia reduce 5.0% (3.9 a 6.2) y solo distancia 3.6%; con 40%, 20.0% (15.5 a 24.8) y 14.2%. El orden de las políticas no cambia, porque la reducción es proporcional al efecto supuesto. El aporte del modelo es de unos 3.7 puntos sobre la mejor política sin modelo (con 25%). **Dónde funciona peor:** dentro de un mismo tramo de antelación el AUC baja a 0.59 a 0.68 (el modelo se apoya mucho en la antelación) y en adultos mayores es 0.707. Análisis completo en [`notebooks/05_evaluacion.ipynb`](notebooks/05_evaluacion.ipynb).
 
 ## 5. Instalación y uso
 
@@ -120,7 +120,7 @@ pip install -r requirements.txt
 | `python -m src.evaluate` | Evalúa en prueba y guarda `results/metrics/evaluacion.json` | 1 min |
 | `python -m src.optimization` | Análisis de sensibilidad de hiperparámetros | 10 a 20 min |
 | `bash scripts/ejecutar_notebooks.sh` | Ejecuta los 5 notebooks en orden | 25 min |
-| `pytest -v` | Corre las 18 pruebas unitarias | 25 s |
+| `pytest -v` | Corre las 21 pruebas unitarias | 25 s |
 | `pycodestyle src app tests scripts` | Verifica el estilo PEP 8 (configuración en `setup.cfg`) | segundos |
 
 Los parámetros (rutas, semillas, rejillas, umbral objetivo, simulación) están en [`config.yaml`](config.yaml).
@@ -179,7 +179,7 @@ priorizacion-visitas-ia/
 ├── src/           data_processing, model, train, evaluate, utils (requeridos) + diagnosis, optimization, simulation
 ├── models/        best_model.pkl, model_v1.pkl, README.md
 ├── app/           app.py (Streamlit), textos.py (español e inglés), requirements.txt, assets/ (ejemplos, estilos, capturas)
-├── tests/         Pruebas de procesamiento, modelo e interfaz (pytest)
+├── tests/         Pruebas de procesamiento, modelo, evaluación de equidad e interfaz (pytest)
 ├── results/       figures/ (24 gráficos a 300 DPI), metrics/ (JSON y CSV), reports/ (guion, preguntas y lista de verificación)
 └── scripts/       Ejecución de los notebooks en orden y generación de códigos QR
 ```
