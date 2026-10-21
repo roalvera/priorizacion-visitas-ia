@@ -38,13 +38,13 @@ Y si ingreso más inasistencias que citas previas, la app lo detecta y explica e
 
 [Diapositiva 5: tabla de modelos; diapositiva 6: gráfico de las cinco políticas]
 
-"En 27 mil citas de pacientes nunca vistos, el AUC es 0.741, frente a 0.702 del modelo que solo usa la antelación, con probabilidades bien calibradas. En la simulación, priorizar por riesgo por distancia redujo el desplazamiento desperdiciado un 12.6%, frente a 8.9% de usar solo la distancia y 5% al azar. Somos honestos con los límites: el modelo se apoya mucho en la antelación, y dentro de un mismo tramo de antelación discrimina poco."
+"En 27 mil citas de pacientes nunca vistos, el AUC es 0.741, frente a 0.702 del modelo que solo usa la antelación, con probabilidades bien calibradas. En una simulación con geografía real de Ohio, porque los datos no traen distancias, priorizar por riesgo por distancia redujo el desplazamiento desperdiciado un 12.6%, frente a 8.9% de usar solo la distancia y 5% al azar; es un beneficio simulado, y con 10% o 40% de efecto de la confirmación va de 5% a 20%, siempre en el mismo orden. Somos honestos con los límites: el modelo se apoya mucho en la antelación, y dentro de un mismo tramo de antelación discrimina poco."
 
 ## Bloque 6. Consideraciones éticas (4:00 a 4:45) | R
 
 [Diapositiva 7: barras de recall por edad, antes y después]
 
-"El hallazgo ético más importante: con un umbral único, el sistema detectaba solo el 31% de las inasistencias de los adultos mayores, justo la población de Medicare. Lo mitigamos con umbrales por grupo de edad: ahora todos los grupos están entre 70 y 74% de cobertura. Además, la app advierte que el riesgo solo sirve para ordenar llamadas, nunca para negar ni retrasar atención. Y SHAP explica al modelo, no causas: el SMS parece aumentar el riesgo solo porque se envía a citas lejanas."
+"El hallazgo ético más importante: con un umbral único, el sistema detectaba solo el 31% de las inasistencias de los adultos mayores, justo la población de Medicare. Lo mitigamos con umbrales por grupo de edad: ahora todos los grupos están entre 70 y 74% de cobertura. Por sexo no hay brecha, y los grupos más vulnerables reciben más cobertura, no menos. Además, la app advierte que el riesgo solo sirve para ordenar llamadas, nunca para negar ni retrasar atención. Y SHAP explica al modelo, no causas: el SMS parece aumentar el riesgo solo porque se envía a citas lejanas."
 
 ## Bloque 7. Cierre (4:45 a 5:00) | R y J
 

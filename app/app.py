@@ -356,6 +356,19 @@ with tab4:
         T["col_rg"]: eq["recall_global"].map("{:.1%}".format),
         T["col_rm"]: eq["recall_mitigado"].map("{:.1%}".format)}),
         hide_index=True, width="stretch")
+    st.markdown(T["equidad_otros"])
+    eo = pd.DataFrame(EVAL["equidad"][5:])
+
+    def _ic(v, ic):
+        return f"{v:.1%} [{ic[0]:.1%}, {ic[1]:.1%}]"
+
+    st.dataframe(pd.DataFrame({
+        T["col_grupo"]: eo["grupo"].map(lambda g: T["grupos"].get(g, g)), T["col_citas"]: eo["n"],
+        T["col_auc_ic"]: [f"{a:.3f} [{i[0]:.3f}, {i[1]:.3f}]" for a, i in zip(eo["auc"], eo["auc_ic95"])],
+        T["col_rg"]: [_ic(v, i) for v, i in zip(eo["recall_global"], eo["recall_global_ic95"])],
+        T["col_rm"]: [_ic(v, i) for v, i in zip(eo["recall_mitigado"], eo["recall_mitigado_ic95"])]}),
+        hide_index=True, width="stretch")
+    st.caption(T["equidad_otros_nota"])
     st.markdown(T["limitaciones"])
     st.markdown(T["lim_texto"])
     st.caption(T["autores"])

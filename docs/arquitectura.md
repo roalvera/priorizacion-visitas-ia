@@ -76,6 +76,8 @@ flowchart LR
 - **Asignación:** cada solicitud se asigna a la sede de NP más cercana (distancia de Haversine). Es una decisión de diseño deliberada: equivale a la lógica de las herramientas de asignación basadas en reglas geográficas.
 - **Priorización:** se elige el 20% de las solicitudes para una confirmación proactiva, sin cambiar la asignación. Se comparan cinco políticas: al azar, solo distancia, por riesgo, riesgo × distancia y una cota óptima.
 - **Datos:** 15 sedes (códigos postales con NP registrados en Ohio) y 300 solicitudes sorteadas entre los 1,233 códigos postales de Ohio. La asociación paciente-ubicación es **sintética**: en cada réplica se asigna a cada solicitud la cita de un paciente real del conjunto de prueba.
+- **Origen de la distancia:** el conjunto de no-show no trae distancias; la distancia de cada solicitud es la de su centroide de código postal (Gazetteer 2023 del Census Bureau) a la sede más cercana. Por eso el beneficio es **simulado**, no observado.
+- **Supuesto y sensibilidad:** la confirmación reduce el no-show en 25% (Robotham et al., 2016); se repite con 10% y 40% (`simulacion.reducciones_sensibilidad` en `config.yaml`). El orden de las políticas se mantiene en los tres escenarios.
 
 ## 6. Tecnologías y versiones
 

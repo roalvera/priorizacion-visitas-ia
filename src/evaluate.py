@@ -1,5 +1,5 @@
 """Evaluación del modelo final en prueba: discriminación, calibración, umbral, importancia,
-SHAP, equidad por grupo de edad (antes y después de la mitigación), confusión del SMS y
+SHAP, equidad por edad, sexo y proxies socioeconómicos (antes y después de la mitigación), confusión del SMS y
 simulación de asignación.
 
 Uso:  python -m src.evaluate
@@ -33,44 +33,78 @@ def metricas_umbral(y, pred) -> dict:
             "porcentaje_senalado": float(np.mean(pred))}
 
 
-def equidad_por_grupo(test: pd.DataFrame, p, modelo: ModeloRiesgo, n_boot: int, semilla: int) -> pd.DataFrame:
-    """AUC con IC bootstrap por paciente, y recall/precisión/% señalado con umbral global y mitigado."""
-    y = test["no_show"].values
-    grupos = asignar_grupo_edad(test["Age"], modelo.grupos_edad, modelo.etiquetas_grupos)
+def proxy_vulnerabilidad_barrio(train: pd.DataFrame, test: pd.DataFrame) -> np.ndarray:
+    """Proxy socioeconómico por barrio: proporción de pacientes con Bolsa Família (Scholarship) en el
+    barrio, calculada solo con el entrenamiento y cortada en terciles ponderados por cita. Los barrios
+    sin citas en entrenamiento reciben la proporción global. Devuelve la etiqueta de tercil por cita."""
+    prop = train.groupby("Neighbourhood")["Scholarship"].mean()
+    v_tr = train["Neighbourhood"].map(prop).values
+    cortes = np.quantile(v_tr, [1 / 3, 2 / 3])
+    v_te = test["Neighbourhood"].map(prop).fillna(train["Scholarship"].mean()).values
+    return np.where(v_te > cortes[1], "alta", np.where(v_te > cortes[0], "media", "baja"))
+
+
+def _grupos_equidad(test: pd.DataFrame, modelo: ModeloRiesgo, barrio: np.ndarray | None) -> list:
+    """(dimensión, etiqueta, máscara) de cada subgrupo evaluado."""
+    edad = asignar_grupo_edad(test["Age"], modelo.grupos_edad, modelo.etiquetas_grupos)
+    g = [("edad", lab, edad == lab) for lab in modelo.etiquetas_grupos]
+    g += [("sexo", "Mujeres", test["gender_f"].values == 1), ("sexo", "Hombres", test["gender_f"].values == 0)]
+    g += [("programa social", "Con Bolsa Família", test["Scholarship"].values == 1),
+          ("programa social", "Sin Bolsa Família", test["Scholarship"].values == 0)]
+    if barrio is not None:
+        g += [("barrio", f"Barrios de vulnerabilidad {n}", barrio == n) for n in ["alta", "media", "baja"]]
+    return g
+
+
+def _ic(valores) -> list:
+    return [float(np.percentile(valores, 2.5)), float(np.percentile(valores, 97.5))]
+
+
+def equidad_por_grupo(test: pd.DataFrame, p, modelo: ModeloRiesgo, n_boot: int, semilla: int,
+                      barrio: np.ndarray | None = None) -> tuple[pd.DataFrame, dict]:
+    """Por edad, sexo y proxies socioeconómicos (Bolsa Família y vulnerabilidad del barrio): AUC y recall
+    con umbral global y con umbrales por edad, con IC 95% por bootstrap por paciente; precisión y % señalado.
+    Un mismo remuestreo de pacientes del conjunto de prueba se usa para todos los subgrupos (como en el
+    análisis original del informe), y con él se estima también la diferencia de AUC entre el grupo de
+    65 años o más y el resto."""
+    y = np.asarray(test["no_show"].values)
+    p = np.asarray(p)
     pred_g = (p >= modelo.umbral_global).astype(int)
     pred_m = (p >= modelo.umbrales_por_fila(test, mitigado=True)).astype(int)
+    grupos = _grupos_equidad(test, modelo, barrio)
+    filas_pac = test.reset_index(drop=True).groupby("PatientId").indices
+    pacientes = np.array(list(filas_pac.keys()))
+    mayor = grupos[len(modelo.etiquetas_grupos) - 1][2]
+    boot = {lab: {"auc": [], "rg": [], "rm": []} for _, lab, _ in grupos}
+    boot_dif = []
     rng = np.random.RandomState(semilla)
+    for _ in range(n_boot):
+        ii = np.concatenate([filas_pac[q] for q in rng.choice(pacientes, len(pacientes), replace=True)])
+        for _, lab, m in grupos:
+            jj = ii[m[ii]]
+            if y[jj].min() != y[jj].max():
+                boot[lab]["auc"].append(roc_auc_score(y[jj], p[jj]))
+                boot[lab]["rg"].append(recall_score(y[jj], pred_g[jj]))
+                boot[lab]["rm"].append(recall_score(y[jj], pred_m[jj]))
+        a, b = ii[mayor[ii]], ii[~mayor[ii]]
+        if y[a].min() != y[a].max():
+            boot_dif.append(roc_auc_score(y[a], p[a]) - roc_auc_score(y[b], p[b]))
     filas = []
-    for lab in modelo.etiquetas_grupos + ["Mujeres", "Hombres"]:
-        if lab == "Mujeres":
-            m = test["gender_f"].values == 1
-        elif lab == "Hombres":
-            m = test["gender_f"].values == 0
-        else:
-            m = grupos == lab
-        sub = test[m]
-        pac = sub["PatientId"].unique()
-        idx_por_pac = sub.groupby("PatientId").indices
-        pos = np.flatnonzero(m)
-        boots = []
-        for _ in range(n_boot):
-            elegidos = rng.choice(pac, len(pac), replace=True)
-            ii = pos[np.concatenate([idx_por_pac[q] for q in elegidos])]
-            if y[ii].min() != y[ii].max():
-                boots.append(roc_auc_score(y[ii], p[ii]))
-        fila = {"grupo": lab, "n": int(m.sum()), "tasa_base": float(y[m].mean()),
-                "auc": float(roc_auc_score(y[m], p[m])),
-                "auc_ic95": [float(np.percentile(boots, 2.5)), float(np.percentile(boots, 97.5))],
-                "recall_global": float(recall_score(y[m], pred_g[m])),
+    for dim, lab, m in grupos:
+        fila = {"dimension": dim, "grupo": lab, "n": int(m.sum()), "tasa_base": float(y[m].mean()),
+                "auc": float(roc_auc_score(y[m], p[m])), "auc_ic95": _ic(boot[lab]["auc"]),
+                "recall_global": float(recall_score(y[m], pred_g[m])), "recall_global_ic95": _ic(boot[lab]["rg"]),
                 "precision_global": float(precision_score(y[m], pred_g[m], zero_division=0)),
-                "senalado_global": float(pred_g[m].mean())}
-        if lab in modelo.etiquetas_grupos:
-            fila.update({"umbral_mitigado": float(modelo.umbrales_grupo[lab]),
-                         "recall_mitigado": float(recall_score(y[m], pred_m[m])),
-                         "precision_mitigado": float(precision_score(y[m], pred_m[m], zero_division=0)),
-                         "senalado_mitigado": float(pred_m[m].mean())})
+                "senalado_global": float(pred_g[m].mean()),
+                "recall_mitigado": float(recall_score(y[m], pred_m[m])), "recall_mitigado_ic95": _ic(boot[lab]["rm"]),
+                "precision_mitigado": float(precision_score(y[m], pred_m[m], zero_division=0)),
+                "senalado_mitigado": float(pred_m[m].mean())}
+        if dim == "edad":
+            fila["umbral_mitigado"] = float(modelo.umbrales_grupo[lab])
         filas.append(fila)
-    return pd.DataFrame(filas)
+    dif = {"observada": float(roc_auc_score(y[mayor], p[mayor]) - roc_auc_score(y[~mayor], p[~mayor])),
+           "ic95": _ic(boot_dif)}
+    return pd.DataFrame(filas), dif
 
 
 def confusion_sms(df: pd.DataFrame) -> dict:
@@ -123,18 +157,23 @@ def evaluar(cfg: dict | None = None) -> dict:
     _, muestra, sv = valores_shap(modelo, Xte, semilla=cfg["proyecto"]["semilla"])
     res["shap_media_abs"] = dict(sorted({f: float(v) for f, v in zip(FEATURES, np.abs(sv).mean(axis=0))}.items(),
                                         key=lambda kv: -kv[1]))
-    eq = equidad_por_grupo(test, p, modelo, cfg["equidad"]["remuestreos_bootstrap"], cfg["proyecto"]["semilla"])
-    # Las filas por sexo no tienen umbral mitigado: se omiten esas claves en lugar de guardar NaN
+    eq, dif = equidad_por_grupo(test, p, modelo, cfg["equidad"]["remuestreos_bootstrap"], cfg["proyecto"]["semilla"],
+                                barrio=proxy_vulnerabilidad_barrio(train, test))
+    # Solo las filas por edad tienen umbral propio: se omite esa clave en las demás en lugar de guardar NaN
     res["equidad"] = [{k: v for k, v in fila.items() if not (isinstance(v, float) and np.isnan(v))}
                       for fila in eq.to_dict(orient="records")]
+    res["diferencia_auc_65_resto"] = dif
     res["confusion_sms"] = confusion_sms(pd.concat([train, test]))
     # Simulación
     sim = cfg["simulacion"]
     _, solicitudes, dist = construir_escenario(cfg)
     k = int(round(sim["fraccion_intervenida"] * sim["n_solicitudes"]))
     principal = simular(p, yte, dist, sim["reduccion_relativa"], k, sim["replicas"], sim["semilla"])
-    sensibilidad = {str(r): simular(p, yte, dist, r, k, sim["replicas_sensibilidad"], sim["semilla"])
-                    for r in [0.15, 0.35, 0.50]}
+    # Sensibilidad al supuesto de efecto (10%, 25% y 40% de reducción relativa de inasistencias)
+    # (el escenario base reutiliza las réplicas principales, como en el análisis original del informe)
+    sensibilidad = {str(r): principal if r == sim["reduccion_relativa"] else
+                    simular(p, yte, dist, r, k, sim["replicas_sensibilidad"], sim["semilla"])
+                    for r in sim["reducciones_sensibilidad"]}
     res["simulacion"] = {"principal": principal, "sensibilidad_efecto": sensibilidad,
                          "millas_totales": float(dist.sum())}
     top = np.argsort(-p)[: int(0.2 * len(p))]

@@ -4,7 +4,7 @@
 
 Los programas de valoración de salud en el hogar (In-Home Assessments, IHA, y Health Risk Assessments, HRA) que administran aseguradoras de Estados Unidos para afiliados de Medicare, Medicaid y Marketplace enfrentan dos problemas operativos:
 
-1. **Inasistencias (no-show).** Una parte relevante de las visitas agendadas no se concreta porque el paciente no está disponible. La literatura reporta una tasa promedio cercana a 23% (Dantas et al., 2018).
+1. **Inasistencias (no-show).** Una parte relevante de las visitas agendadas no se concreta porque el paciente no está disponible. En consultas ambulatorias, la literatura reporta una tasa promedio cercana a 23% (Dantas et al., 2018); no encontramos una cifra publicada específica de programas IHA/HRA, por lo que ese valor es solo un orden de magnitud y la tasa real debe medirse en el programa (en el conjunto usado es 20.2%).
 2. **Asignación puramente geográfica.** El personal itinerante (Nurse Practitioners, NP) se asigna por cercanía, sin considerar el riesgo de que la visita termine en inasistencia. Una visita de alto riesgo recibe el mismo tratamiento que una de bajo riesgo.
 
 **Pregunta de negocio:** ¿se puede usar un modelo de riesgo de inasistencia para decidir qué visitas confirmar primero y así reducir el desplazamiento desperdiciado del personal?

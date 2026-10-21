@@ -71,7 +71,7 @@ La pestaña **Historial de la sesión** guarda las predicciones individuales hec
 
 ## 6. Acerca del modelo
 
-Muestra qué hace el modelo, sus métricas en datos de prueba, la equidad por grupo de edad y las limitaciones.
+Muestra qué hace el modelo, sus métricas en datos de prueba, la equidad por grupo de edad, por sexo y por indicadores socioeconómicos (programa social y barrio, con intervalos de confianza) y las limitaciones.
 
 ![Acerca del modelo](../app/assets/capturas/06_acerca.png)
 
