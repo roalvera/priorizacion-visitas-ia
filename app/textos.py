@@ -74,7 +74,7 @@ TEXTOS = {
         "descargar_hist": "Descargar historial (CSV)", "borrar_hist": "Borrar historial",
         "acerca_titulo": "Acerca del modelo",
         "acerca": (
-            "**Qué hace.** Estima la probabilidad de que un paciente no se presente a una cita, a partir de 13 "
+            "**Qué hace.** Estima la probabilidad de que un paciente no se presente a una cita, a partir de 14 "
             "variables demográficas, clínicas, de la cita y de su historial. El riesgo se usa para **ordenar el "
             "trabajo de confirmación**, no para decidir quién recibe atención.\n\n"
             "**Modelo.** Gradient Boosting basado en histogramas (scikit-learn), elegido por validación cruzada "
@@ -207,7 +207,7 @@ TEXTOS = {
         "descargar_hist": "Download history (CSV)", "borrar_hist": "Clear history",
         "acerca_titulo": "About the model",
         "acerca": (
-            "**What it does.** Estimates the probability that a patient will miss an appointment, from 13 demographic, "
+            "**What it does.** Estimates the probability that a patient will miss an appointment, from 14 demographic, "
             "clinical, appointment and history variables. The risk is used to **order confirmation work**, not to "
             "decide who receives care.\n\n"
             "**Model.** Histogram-based Gradient Boosting (scikit-learn), selected with patient-grouped "
