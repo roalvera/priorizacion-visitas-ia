@@ -3,11 +3,13 @@
 ![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.8-F7931E?logo=scikitlearn&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.64-FF4B4B?logo=streamlit&logoColor=white)
-![Pruebas](https://img.shields.io/badge/pruebas-18%20aprobadas-brightgreen)
+![Pruebas](https://img.shields.io/badge/pruebas-21%20aprobadas-brightgreen)
 ![Estilo](https://img.shields.io/badge/estilo-PEP%208-blue)
 ![Idiomas](https://img.shields.io/badge/interfaz-ES%20%7C%20EN-informational)
 ![Licencia código](https://img.shields.io/badge/c%C3%B3digo-MIT-green)
 ![Licencia datos](https://img.shields.io/badge/datos-CC%20BY--NC--SA%204.0-lightgrey)
+
+**Aplicación en línea:** [priorizacion-visitas-ia.streamlit.app](https://priorizacion-visitas-ia.streamlit.app) · **Repositorio:** [github.com/roalvera/priorizacion-visitas-ia](https://github.com/roalvera/priorizacion-visitas-ia)
 
 Sistema de IA que estima el riesgo de inasistencia (no-show) de una visita de valoración de salud y lo combina con la distancia para decidir **a quién confirmar primero**. Integra un modelo de Gradient Boosting con validación rigurosa, explicaciones SHAP, una mitigación de equidad por grupo de edad y una interfaz Streamlit lista para usar.
 
@@ -104,7 +106,7 @@ El conjunto de datos no trae distancias: las solicitudes se ubican en centroides
 **Requisitos:** Python 3.12, unos 2 GB de RAM y 500 MB de disco. Funciona en Windows, macOS y Linux, solo con CPU.
 
 ```bash
-git clone https://github.com/<usuario>/priorizacion-visitas-ia.git
+git clone https://github.com/roalvera/priorizacion-visitas-ia.git
 cd priorizacion-visitas-ia
 python -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
@@ -160,7 +162,11 @@ También incluye manejo de errores con mensajes claros, indicadores de carga, ay
 
 **Despliegue (Streamlit Community Cloud, gratuito):** en https://share.streamlit.io elija *New app*, el repositorio, la rama `main` y el archivo `app/app.py`; en *Advanced settings* seleccione Python 3.12. La app instala `app/requirements.txt` y usa el modelo ya entrenado de `models/`.
 
-**Aplicación desplegada:** `https://<su-app>.streamlit.app` *(se completa al publicar en Streamlit Community Cloud)*
+**Aplicación desplegada:** [https://priorizacion-visitas-ia.streamlit.app](https://priorizacion-visitas-ia.streamlit.app) (Streamlit Community Cloud)
+
+| Repositorio | Aplicación |
+|---|---|
+| ![QR del repositorio](results/reports/qr_repositorio.png) | ![QR de la aplicación](results/reports/qr_app.png) |
 
 > La aplicación está publicada gratis en Streamlit Community Cloud. Si al abrirla aparece el mensaje de que está dormida por inactividad, pulse **Yes, get this app back up!** y espere unos segundos a que cargue.
 

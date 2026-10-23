@@ -17,7 +17,7 @@ Cada requisito de la guía *Proyecto Final: Sistema de IA Integral* y dónde se 
 | app/: app.py, requirements.txt, assets/ | `app/` | ✅ |
 | tests/: test_data_processing, test_model, test_app, test_evaluacion | `tests/` (21 pruebas) | ✅ |
 | results/: figures, metrics, reports | `results/` | ✅ |
-| Repositorio **público** | GitHub | Pendiente (equipo) |
+| Repositorio **público** | https://github.com/roalvera/priorizacion-visitas-ia | ✅ |
 
 ### Contenido obligatorio del README
 
@@ -31,7 +31,7 @@ Cada requisito de la guía *Proyecto Final: Sistema de IA Integral* y dónde se 
 | 6 | Resultados: accuracy, F1 y otras; comparación con baseline; tabla y gráfico | 4 | ✅ |
 | 7 | Requisitos, instalación paso a paso, comandos, ejemplos de uso | 5 | ✅ |
 | 8 | Interfaz: descripción, capturas, instrucciones | 6 | ✅ |
-| 8 | Enlace a la aplicación desplegada | 6 | Pendiente (equipo) |
+| 8 | Enlace a la aplicación desplegada | 6 | ✅ https://priorizacion-visitas-ia.streamlit.app |
 | 9 | Estructura del proyecto | 7 | ✅ |
 | 10 | Ética: resumen, limitaciones, advertencias | 8 | ✅ |
 | 11 | Autores y roles | 9 | ✅ |
@@ -62,7 +62,7 @@ Cada requisito de la guía *Proyecto Final: Sistema de IA Integral* y dónde se 
 | Valorado por el workshop de ética: canal de apelación | Botón *Solicitar revisión* en cada predicción, con descarga de solicitudes | ✅ |
 | Sugerencia de la docente (workshop): equidad por sexo y proxies socioeconómicos | Tabla con AUC y recall [IC 95%] por sexo, Bolsa Família y vulnerabilidad del barrio en *Acerca del modelo* | ✅ |
 | Instrucciones dentro de la app | Desplegable "¿Cómo usar esta herramienta?" y ayudas ⓘ | ✅ |
-| Aplicación publicada | Streamlit Community Cloud | Pendiente (equipo) |
+| Aplicación publicada | Streamlit Community Cloud: https://priorizacion-visitas-ia.streamlit.app | ✅ |
 
 ## 3. Documentación en docs/ (10%)
 
@@ -105,7 +105,7 @@ Cada requisito de la guía *Proyecto Final: Sistema de IA Integral* y dónde se 
 | Informe escrito completo (APA) | `results/reports/informe_proyecto_integrador.docx` | ✅ |
 | Workshop de impacto social y responsabilidad | `results/reports/workshop_impacto_social.pdf` | ✅ |
 | Observaciones de la docente al workshop (95/100) | Corregidas en el workshop, el informe y el repositorio: beneficio de la simulación presentado como simulado y con origen de la distancia; sensibilidad 10%, 25% y 40%; grupos de edad consistentes (56 a 64 y 65 o más); AUC y recall con IC por sexo y proxies socioeconómicos; transferencia de dominio como riesgo prioritario con mitigación; justificación del uso de la edad frente a la norma de no discriminación; alcance de la cifra de 23%; efectividades medidas frente a esperadas | ✅ |
-| Código QR del repositorio y de la app | `python scripts/generar_qr.py <url_repo> <url_app>` | Pendiente (equipo) |
+| Código QR del repositorio y de la app | `results/reports/qr_repositorio.png` y `qr_app.png` | ✅ |
 | Diapositivas (8 a 10), grabación de al menos 720p con la app publicada | | Pendiente (equipo) |
 | Video de respuestas, en orden y numeradas | | Pendiente (equipo) |
 
