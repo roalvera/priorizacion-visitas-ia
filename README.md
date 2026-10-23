@@ -162,6 +162,8 @@ También incluye manejo de errores con mensajes claros, indicadores de carga, ay
 
 **Aplicación desplegada:** `https://<su-app>.streamlit.app` *(se completa al publicar en Streamlit Community Cloud)*
 
+> La aplicación está publicada gratis en Streamlit Community Cloud. Si al abrirla aparece el mensaje de que está dormida por inactividad, pulse **Yes, get this app back up!** y espere unos segundos a que cargue.
+
 | Predicción individual | Priorización de un lote |
 |---|---|
 | ![Predicción](app/assets/capturas/02_prediccion.png) | ![Lote](app/assets/capturas/04_lote.png) |
