@@ -1,0 +1,17 @@
+{
+  "falsos_negativos": 1620,
+  "fn_mediana": {
+    "Age": 54.0,
+    "lead_time_days": 3.0,
+    "prior_appts": 0.0
+  },
+  "fn_con_antelacion_hasta_7_dias": 0.758641975308642,
+  "fn_sin_historial": 0.674074074074074,
+  "perfil": "50 a 58 años, 1 a 5 días de antelación, sin historial, sin SMS",
+  "citas_perfil": 412,
+  "tasa_real_perfil": 0.25485436893203883,
+  "probabilidad_media_perfil": 0.21380695484204898,
+  "inasistencias_perfil": 105,
+  "detectadas_umbral_global": 14,
+  "detectadas_umbrales_por_edad": 47
+}

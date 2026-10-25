@@ -99,7 +99,7 @@ El conjunto de datos no trae distancias: las solicitudes se ubican en centroides
 | **Riesgo × distancia** | **12.6% (9.5 a 15.7)** |
 | Cota óptima (conoce el desenlace) | 24.8% (23.6 a 25.0) |
 
-**Sensibilidad al supuesto del 25%:** con 10% de efecto, riesgo × distancia reduce 5.0% (3.9 a 6.2) y solo distancia 3.6%; con 40%, 20.0% (15.5 a 24.8) y 14.2%. El orden de las políticas no cambia, porque la reducción es proporcional al efecto supuesto. El aporte del modelo es de unos 3.7 puntos sobre la mejor política sin modelo (con 25%). **Dónde funciona peor:** dentro de un mismo tramo de antelación el AUC baja a 0.59 a 0.68 (el modelo se apoya mucho en la antelación) y en adultos mayores es 0.707. Análisis completo en [`notebooks/05_evaluacion.ipynb`](notebooks/05_evaluacion.ipynb).
+**Sensibilidad al supuesto del 25%:** con 10% de efecto, riesgo × distancia reduce 5.0% (3.9 a 6.2) y solo distancia 3.6%; con 40%, 20.0% (15.5 a 24.8) y 14.2%. El orden de las políticas no cambia, porque la reducción es proporcional al efecto supuesto. El aporte del modelo es de unos 3.7 puntos sobre la mejor política sin modelo (con 25%). **Dónde funciona peor:** dentro de un mismo tramo de antelación el AUC baja a 0.59 a 0.68 (el modelo se apoya mucho en la antelación) y en adultos mayores es 0.707. Caso de falla documentado (`scripts/caso_de_falla.py`): en citas de personas de 50 a 58 años con 1 a 5 días de antelación, sin historial ni SMS, falta el 25.5%, pero el modelo estima 21.4% en promedio y, con los umbrales por edad, detecta solo 47 de 105 inasistencias (14 con umbral único). Análisis completo en [`notebooks/05_evaluacion.ipynb`](notebooks/05_evaluacion.ipynb).
 
 ## 5. Instalación y uso
 
