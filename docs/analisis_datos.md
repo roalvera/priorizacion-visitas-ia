@@ -80,6 +80,16 @@ Notebook completo: [`notebooks/01_exploracion.ipynb`](../notebooks/01_exploracio
 
 ![Partición](../results/figures/08_particion.png)
 
+**Experimento de control: qué pasaría sin el historial sin fuga.** `scripts/experimento_fuga.py` entrena el mismo modelo final con un historial ingenuo, que calcula la tasa de inasistencia del paciente con todas sus citas, incluida la propia y las futuras. Resultados en prueba (`results/metrics/experimento_fuga.json`):
+
+| Variante | AUC en prueba |
+|---|---|
+| A. Pipeline del proyecto (historial sin fuga, partición por paciente) | **0.741** |
+| B. Historial con fuga, partición por paciente | 0.972 |
+| C. Historial con fuga y partición aleatoria por cita (12,062 pacientes en ambos lados) | 0.972 |
+
+El 0.972 es falso: el modelo «ve» el desenlace que debe predecir a través de la tasa del paciente (en quien tiene una sola cita, la tasa es exactamente su desenlace). En producción esa información no existe al agendar, y el desempeño real caería al nivel de A o por debajo. Por eso el historial sin fuga es la decisión de preprocesamiento más importante del proyecto.
+
 ## 6. Datos faltantes y desbalance
 
 - **Faltantes:** no hay valores faltantes en el dataset. Los pacientes sin historial reciben 0 citas previas y tasa 0, codificación que los árboles distinguen sin problema.
