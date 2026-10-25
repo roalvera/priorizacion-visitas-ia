@@ -91,7 +91,7 @@ La mejora antes y después, en prueba: con valores por defecto y umbral de 0.5, 
 
 Un caso donde falla: mujer de 52 años, cita mañana, sin historial ni SMS. El modelo da 18%, riesgo moderado, y no la marca. Pero en 412 citas de prueba con un perfil parecido faltó el 25.5%, y de 105 inasistencias detectó solo 47; el cálculo está en el script del caso de falla.
 
-¿Por qué? El modelo se apoya sobre todo en la antelación: una cita cercana baja el riesgo, y sin historial no tiene otra señal. Dentro de un mismo tramo de antelación, el AUC cae a entre 0.59 y 0.68."
+¿Por qué? Lo muestra el gráfico SHAP: la antelación de un día sube el riesgo, pero la edad de 52 lo baja, porque en promedio las personas mayores faltan menos. Sin historial no hay otra señal que distinga a quien sí faltará, y la estimación queda cerca del promedio, bajo el umbral. Dentro de un mismo tramo de antelación, el AUC cae a entre 0.59 y 0.68."
 
 ## Pregunta 6 | Jhon
 
