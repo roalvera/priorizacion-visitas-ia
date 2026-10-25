@@ -57,3 +57,24 @@ def test_revision_otro_exige_comentario():
     at.button(key="FormSubmitter:form_revision-Registrar solicitud de revisión").click().run()
     assert len(at.session_state.revisiones) == 0
     assert any("Otro" in e.value for e in at.error)
+
+
+@pytest.mark.parametrize("demo, esperado", [("falla", "Riesgo moderado"), ("adulto", "Riesgo alto"),
+                                            ("adulto_unico", "Riesgo moderado")])
+def test_enlaces_de_demostracion_calculan_el_caso(demo, esperado):
+    at = AppTest.from_file(APP, default_timeout=120)
+    at.query_params["demo"] = demo
+    at.run()
+    assert not at.exception
+    assert any(esperado in m.value for m in at.markdown)
+
+
+def test_enlace_de_demostracion_con_error_y_desconocido():
+    at = AppTest.from_file(APP, default_timeout=120)
+    at.query_params["demo"] = "error"
+    at.run()
+    assert any("no pueden ser más" in e.value for e in at.error)
+    at = AppTest.from_file(APP, default_timeout=120)
+    at.query_params["demo"] = "no-existe"
+    at.run()
+    assert not at.exception

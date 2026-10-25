@@ -83,6 +83,50 @@ def aplicar_ejemplo(nombre: str) -> None:
         st.session_state[f"in_{k}"] = v
 
 
+FORMULARIO_VACIO = {"sexo": "F", "edad": 0, "barrio": "__otro__", "social": False, "hta": False, "dm": False,
+                    "alc": False, "disc": False, "antelacion": 0, "dia": 0, "sms": False, "previas": 0, "faltas": 0}
+# Enlaces de demostración (?demo=...): abren la app con un caso ya cargado, para el video y la evaluación.
+DEMOS = {
+    "alto": {"pestana": 0, "ejemplo": "riesgo alto", "calcular": True},
+    "adulto": {"pestana": 0, "ejemplo": "adulto mayor", "calcular": True},
+    "adulto_unico": {"pestana": 0, "ejemplo": "adulto mayor", "calcular": True, "mitigado": False},
+    "falla": {"pestana": 0, "valores": {"edad": 52, "antelacion": 1}, "calcular": True},
+    "error": {"pestana": 0, "valores": {"edad": 40, "previas": 2, "faltas": 3}, "calcular": True},
+    "lote": {"pestana": 1, "csv": "lote_ejemplo.csv"},
+    "lote_errores": {"pestana": 1, "csv": "lote_con_errores.csv"},
+    "columnas": {"pestana": 1, "csv": "lote_columnas_faltantes.csv"},
+    "acerca": {"pestana": 3},
+}
+
+
+def aplicar_demo() -> int:
+    """Aplica una sola vez por sesión el caso indicado en ?demo= y devuelve la pestaña que debe abrirse."""
+    if "in_mitigado" not in st.session_state:
+        st.session_state.in_mitigado = True
+    if st.session_state.get("demo_aplicada"):
+        return 0
+    st.session_state.demo_aplicada = True
+    demo = DEMOS.get(str(st.query_params.get("demo", "")).strip().lower())
+    if demo is None:
+        return 0
+    if "ejemplo" in demo or "valores" in demo:
+        for k, v in FORMULARIO_VACIO.items():
+            st.session_state[f"in_{k}"] = v
+        if "ejemplo" in demo:
+            aplicar_ejemplo(demo["ejemplo"])
+        for k, v in demo.get("valores", {}).items():
+            st.session_state[f"in_{k}"] = v
+    if "mitigado" in demo:
+        st.session_state.in_mitigado = demo["mitigado"]
+    if demo.get("csv"):
+        try:
+            st.session_state.lote = pd.read_csv(ASSETS / demo["csv"])
+        except OSError:
+            LOG.warning("no se encontró el archivo de demostración %s", demo["csv"])
+    st.session_state.auto_calcular = bool(demo.get("calcular"))
+    return demo["pestana"]
+
+
 def categoria(prob: float, umbral: float) -> tuple[str, str, str]:
     """Categoría de riesgo (código, texto en el idioma activo y color)."""
     if prob >= umbral:
@@ -125,15 +169,17 @@ st.warning(T["aviso"], icon="⚠️")
 with st.expander(T["como_usar"]):
     st.markdown(T["instrucciones"])
 
+PESTANA_INICIAL = aplicar_demo()
+
 with st.sidebar:
     st.header(T["config"])
-    mitigado = st.toggle(T["mitigado"], value=True, help=T["mitigado_ayuda"])
+    mitigado = st.toggle(T["mitigado"], key="in_mitigado", help=T["mitigado_ayuda"])
     fraccion = st.slider(T["capacidad"], 5, 50, 20, 5, help=T["capacidad_ayuda"]) / 100
     st.divider()
     st.caption(T["modelo_pie"].format(v=MODELO.metadatos.get("version", "1.0.0"), auc=EVAL["auc_roc"]))
     st.caption(T["tema"])
 
-tab1, tab2, tab3, tab4 = st.tabs(T["tabs"])
+tab1, tab2, tab3, tab4 = st.tabs(T["tabs"], default=T["tabs"][PESTANA_INICIAL])
 
 # --------------------------------------------------------------------------- pestaña 1
 with tab1:
@@ -169,7 +215,7 @@ with tab1:
             faltas = st.number_input(T["faltas"], min_value=0, max_value=100, step=1, key="in_faltas")
         enviado = st.form_submit_button(T["calcular"], type="primary", width="stretch")
 
-    if enviado:
+    if enviado or st.session_state.pop("auto_calcular", False):
         if faltas > previas:
             st.error(T["error_faltas"])
         else:
@@ -273,7 +319,9 @@ with tab2:
     lote = st.session_state.get("lote")
     if lote is not None:
         validas, errores = validar_lote(lote)
-        if errores:
+        if errores and len(validas) == 0 and len(errores) == 1:
+            st.error(errores[0])        # por ejemplo, columnas faltantes: un solo mensaje claro
+        elif errores:
             with st.expander(T["filas_error"].format(n=len(errores)), expanded=len(validas) == 0):
                 for e in errores[:50]:
                     st.write(e)

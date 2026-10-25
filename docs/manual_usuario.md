@@ -98,6 +98,8 @@ Muestra qué hace el modelo, sus métricas en datos de prueba, la equidad por gr
 Para ver el manejo de errores en un lote, cargue `app/assets/lote_con_errores.csv`: tiene 3 filas válidas y 2 con errores (edad de 150 años; SMS con valor 2 y tasa previa de 1.5). La app procesa las 3 válidas y lista las otras con su motivo.
 Para ver el mensaje de columnas faltantes, cargue `app/assets/lote_columnas_faltantes.csv`.
 
+También puede abrir cada caso con un enlace directo, por ejemplo `https://priorizacion-visitas-ia.streamlit.app/?demo=lote_errores`; la lista completa de enlaces está en la sección 6 del README.
+
 ## 9. Preguntas frecuentes
 
 **¿La aplicación guarda los datos que ingreso?** No. Todo se procesa en memoria y se borra al cerrar la página.

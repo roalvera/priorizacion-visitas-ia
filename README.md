@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.8-F7931E?logo=scikitlearn&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.64-FF4B4B?logo=streamlit&logoColor=white)
-![Pruebas](https://img.shields.io/badge/pruebas-21%20aprobadas-brightgreen)
+![Pruebas](https://img.shields.io/badge/pruebas-25%20aprobadas-brightgreen)
 ![Estilo](https://img.shields.io/badge/estilo-PEP%208-blue)
 ![Idiomas](https://img.shields.io/badge/interfaz-ES%20%7C%20EN-informational)
 ![Licencia código](https://img.shields.io/badge/c%C3%B3digo-MIT-green)
@@ -122,7 +122,7 @@ pip install -r requirements.txt
 | `python -m src.evaluate` | Evalúa en prueba y guarda `results/metrics/evaluacion.json` | 1 min |
 | `python -m src.optimization` | Análisis de sensibilidad de hiperparámetros | 10 a 20 min |
 | `bash scripts/ejecutar_notebooks.sh` | Ejecuta los 5 notebooks en orden | 25 min |
-| `pytest -v` | Corre las 21 pruebas unitarias | 25 s |
+| `pytest -v` | Corre las 25 pruebas unitarias | 25 s |
 | `pycodestyle src app tests scripts` | Verifica el estilo PEP 8 (configuración en `setup.cfg`) | segundos |
 
 Los parámetros (rutas, semillas, rejillas, umbral objetivo, simulación) están en [`config.yaml`](config.yaml).
@@ -169,6 +169,20 @@ También incluye manejo de errores con mensajes claros, indicadores de carga, ay
 | ![QR del repositorio](results/reports/qr_repositorio.png) | ![QR de la aplicación](results/reports/qr_app.png) |
 
 > La aplicación está publicada gratis en Streamlit Community Cloud. Si al abrirla aparece el mensaje de que está dormida por inactividad, pulse **Yes, get this app back up!** y espere unos segundos a que cargue.
+
+**Enlaces de demostración:** abren la app con un caso ya cargado y calculado.
+
+| Enlace | Qué muestra |
+|---|---|
+| [https://priorizacion-visitas-ia.streamlit.app/?demo=alto](https://priorizacion-visitas-ia.streamlit.app/?demo=alto) | Ejemplo de riesgo alto con su explicación SHAP |
+| [https://priorizacion-visitas-ia.streamlit.app/?demo=falla](https://priorizacion-visitas-ia.streamlit.app/?demo=falla) | Caso de falla: mujer de 52 años con cita al día siguiente (18%, no marcada) |
+| [https://priorizacion-visitas-ia.streamlit.app/?demo=adulto_unico](https://priorizacion-visitas-ia.streamlit.app/?demo=adulto_unico) | Adulto mayor con umbral único: riesgo moderado |
+| [https://priorizacion-visitas-ia.streamlit.app/?demo=adulto](https://priorizacion-visitas-ia.streamlit.app/?demo=adulto) | El mismo adulto mayor con umbral por grupo de edad: riesgo alto |
+| [https://priorizacion-visitas-ia.streamlit.app/?demo=error](https://priorizacion-visitas-ia.streamlit.app/?demo=error) | Entrada inválida: más inasistencias que citas previas |
+| [https://priorizacion-visitas-ia.streamlit.app/?demo=lote](https://priorizacion-visitas-ia.streamlit.app/?demo=lote) | Lote de 50 visitas priorizado por riesgo × distancia |
+| [https://priorizacion-visitas-ia.streamlit.app/?demo=lote_errores](https://priorizacion-visitas-ia.streamlit.app/?demo=lote_errores) | Lote con 2 filas inválidas: procesa las 3 válidas y explica las excluidas |
+| [https://priorizacion-visitas-ia.streamlit.app/?demo=columnas](https://priorizacion-visitas-ia.streamlit.app/?demo=columnas) | CSV con columnas faltantes: mensaje de error claro |
+| [https://priorizacion-visitas-ia.streamlit.app/?demo=acerca](https://priorizacion-visitas-ia.streamlit.app/?demo=acerca) | Métricas, equidad por edad, sexo y nivel socioeconómico, y limitaciones |
 
 | Predicción individual | Priorización de un lote |
 |---|---|
