@@ -95,6 +95,8 @@ Muestra qué hace el modelo, sus métricas en datos de prueba, la equidad por gr
 
 ![Ejemplo de mensaje de error](../app/assets/capturas/03_error_validacion.png)
 
+Para ver el manejo de errores en un lote, cargue `app/assets/lote_con_errores.csv`: tiene 3 filas válidas y 2 con errores (edad de 150 años; SMS con valor 2 y tasa previa de 1.5). La app procesa las 3 válidas y lista las otras con su motivo.
+
 ## 9. Preguntas frecuentes
 
 **¿La aplicación guarda los datos que ingreso?** No. Todo se procesa en memoria y se borra al cerrar la página.

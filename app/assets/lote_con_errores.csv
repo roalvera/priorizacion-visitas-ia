@@ -1,0 +1,6 @@
+id_visita,gender_f,Age,Scholarship,Hipertension,Diabetes,Alcoholism,Handcap,SMS_received,lead_time_days,appt_dow,prior_appts,prior_noshow_rate,neighbourhood_freq,millas
+V001,0,41,0,0,0,0,1,1,5,1,1,0.0,0.0062488690512093,27.5
+V002,0,61,0,0,0,0,0,1,19,1,0,0.0,0.0036672899451112,5.3
+V003,1,77,0,1,1,0,0,0,10,0,0,0.0,0.0245732553229989,75.9
+V004,1,150,0,1,0,0,0,0,10,2,2,0.5,0.0062488690512093,12.0
+V005,0,30,0,0,0,0,0,2,7,3,4,1.5,0.0036672899451112,8.4
