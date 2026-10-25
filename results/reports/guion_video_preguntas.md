@@ -21,7 +21,7 @@
 
 ## Pregunta 1 | Romel
 
-[Pantalla: la app publicada, pestaña «Priorizar un lote (CSV)»]
+[Pantalla: diapositiva de la pregunta 1; luego el enlace priorizacion-visitas-ia.streamlit.app/?demo=lote, que abre el lote de 50 visitas ya priorizado]
 
 **Leer en voz alta:** "Pregunta 1: ¿Qué problema resuelve su sistema, quién es el usuario y qué haría hoy esa persona sin él?"
 
@@ -31,7 +31,7 @@ El usuario es el coordinador de programación, no el paciente: ve la lista prior
 
 ¿Qué hace hoy sin el sistema? Lo conozco de primera mano, porque trabajo en la programación de estas visitas: asigna la enfermera más cercana y confirma en el orden de la agenda. Con capacidad limitada, una visita de bajo riesgo recibe el mismo trato que una de alto riesgo.
 
-[Pulsar «Prueba con ejemplo: lote de 50 visitas»] Aquí, de 50 visitas, el sistema marca el 20% que conviene confirmar primero.
+[Abrir el enlace ?demo=lote] Aquí, de 50 visitas, el sistema marca el 20% que conviene confirmar primero.
 
 El beneficio es simulado, no medido: con geografía real de Ohio, riesgo por distancia redujo las millas desperdiciadas 12.6%, frente a 8.9% solo por distancia. Y la limitación principal: el modelo se entrenó con citas de Brasil, así que hay que reentrenarlo con datos del programa antes de usarlo."
 
@@ -41,7 +41,7 @@ El beneficio es simulado, no medido: con geografía real de Ohio, riesgo por dis
 
 ## Pregunta 2 | Jhon
 
-[Pantalla: `docs/analisis_datos.md` en GitHub, sección 5, tabla del experimento de control]
+[Pantalla: diapositiva de la pregunta 2. Respaldo en GitHub: `docs/analisis_datos.md` en GitHub, sección 5, tabla del experimento de control]
 
 **Leer en voz alta:** "Pregunta 2: ¿De dónde vienen sus datos y qué limitaciones tienen (tamaño, sesgos, desbalance)? ¿Qué decisión de preprocesamiento fue la más importante y qué habría pasado sin ella?"
 
@@ -55,7 +55,7 @@ La decisión de preprocesamiento más importante fue construir el historial del 
 
 ## Pregunta 3 | Romel
 
-[Pantalla: README, sección 4, tabla de modelos; luego la figura `results/figures/09_roc.png`]
+[Pantalla: diapositiva de la pregunta 3. Respaldo en GitHub: README, sección 4, tabla de modelos; luego la figura `results/figures/09_roc.png`]
 
 **Leer en voz alta:** "Pregunta 3: ¿Por qué eligieron este modelo y no las otras técnicas que compararon? Muestren la comparación con el baseline."
 
@@ -69,7 +69,7 @@ Con honestidad: la ganancia sobre el baseline es moderada, 0.039 de AUC. Estudio
 
 ## Pregunta 4 | Jhon
 
-[Pantalla: `docs/optimizacion.md` en GitHub, figura 12 (ranking) y tabla de la sección 10 (antes y después)]
+[Pantalla: diapositiva de la pregunta 4. Respaldo en GitHub: `docs/optimizacion.md` en GitHub, figura 12 (ranking) y tabla de la sección 10 (antes y después)]
 
 **Leer en voz alta:** "Pregunta 4: Según el análisis de sensibilidad del Workshop S5, ¿qué hiperparámetros pesaron más y qué mejora cuantificable lograron entre antes y después?"
 
@@ -83,7 +83,7 @@ La mejora antes y después, en prueba: con valores por defecto y umbral de 0.5, 
 
 ## Pregunta 5 | Romel
 
-[Pantalla: la app publicada, pestaña «Predicción individual». Ingresar: sexo femenino, edad 52, días de antelación 1, el resto por defecto (lunes, sin SMS, sin condiciones, 0 citas previas). Pulsar «Calcular riesgo».]
+[Pantalla: diapositiva de la pregunta 5; luego el enlace priorizacion-visitas-ia.streamlit.app/?demo=falla, que abre el caso de la mujer de 52 años ya calculado (18.2%, riesgo moderado)]
 
 **Leer en voz alta:** "Pregunta 5: ¿Por qué la métrica que eligieron es la adecuada para su problema? Muestren un caso donde el modelo falla y expliquen por qué."
 
@@ -95,7 +95,7 @@ Un caso donde falla: mujer de 52 años, cita mañana, sin historial ni SMS. El m
 
 ## Pregunta 6 | Jhon
 
-[Pantalla: `notebooks/03_modelado.ipynb` o `docs/optimizacion.md` en GitHub, figuras 21 y 22 (curvas de entrenamiento y validación)]
+[Pantalla: diapositiva de la pregunta 6. Respaldo en GitHub: `notebooks/03_modelado.ipynb` o `docs/optimizacion.md` en GitHub, figuras 21 y 22 (curvas de entrenamiento y validación)]
 
 **Leer en voz alta:** "Pregunta 6: ¿Cómo comprobaron que el modelo no sufre overfitting y que funcionaría con datos nuevos?"
 
@@ -111,7 +111,7 @@ La limitación: «datos nuevos» aquí son pacientes nuevos de la misma poblaci�
 
 ## Pregunta 7 | Romel
 
-[Pantalla: la app publicada. Pulsar «Prueba con ejemplo: adulto mayor»; apagar el interruptor «Umbral ajustado por grupo de edad» de la barra lateral y calcular; encenderlo y calcular de nuevo. Al final, la pestaña «Acerca del modelo» con las dos tablas de equidad.]
+[Pantalla: diapositiva de la pregunta 7; luego el enlace priorizacion-visitas-ia.streamlit.app/?demo=adulto_unico (umbral único: moderado) y después priorizacion-visitas-ia.streamlit.app/?demo=adulto (umbral por edad: alto). Al final, priorizacion-visitas-ia.streamlit.app/?demo=acerca]
 
 **Leer en voz alta:** "Pregunta 7: ¿Cuál es el riesgo ético o social más importante de su proyecto (sesgo, privacidad, uso indebido) y qué medida concreta implementaron? ¿En qué casos no debería usarse?"
 
@@ -125,17 +125,17 @@ Usar la edad así es una corrección, no una exclusión: solo decide quién reci
 
 ## Pregunta 8 | Jhon
 
-[Pantalla: grabación de la app publicada]
+[Pantalla: diapositiva de la pregunta 8; luego la app publicada con los enlaces ?demo=error, ?demo=lote_errores y ?demo=columnas]
 
 **Leer en voz alta:** "Pregunta 8: Con grabación de pantalla, muestren cómo la interfaz maneja una entrada inválida y un error. ¿Qué decisiones de diseño tomaron pensando en el usuario final?"
 
 **Respuesta:** "Muestro tres casos en la app publicada.
 
-Primero, una entrada inválida: pongo 2 citas previas y 3 inasistencias. [Calcular] La app no calcula y explica: «Las inasistencias previas no pueden ser más que las citas previas». Además, los campos tienen límites: la edad solo acepta de 0 a 115.
+Primero, una entrada inválida: con 2 citas previas y 3 inasistencias [enlace ?demo=error; si quieren, cambien un valor en vivo y pulsen Calcular] La app no calcula y explica: «Las inasistencias previas no pueden ser más que las citas previas». Además, los campos tienen límites: la edad solo acepta de 0 a 115.
 
-Segundo, un lote con errores. [Subir `lote_con_errores.csv`] Procesa las 3 filas válidas y lista las 2 excluidas con su motivo: edad de 150 en la fila 5, y SMS con valor 2 y tasa previa de 1.5 en la fila 6.
+Segundo, un lote con errores. [Enlace ?demo=lote_errores] Procesa las 3 filas válidas y lista las 2 excluidas con su motivo: edad de 150 en la fila 5, y SMS con valor 2 y tasa previa de 1.5 en la fila 6.
 
-Tercero, un CSV con otro formato. [Subir `lote_columnas_faltantes.csv`] La app no adivina: dice qué columnas faltan, y la plantilla está para descargar ahí mismo. Cualquier falla interna se registra en el log, y el usuario ve un mensaje claro, nunca un error técnico.
+Tercero, un CSV con otro formato. [Enlace ?demo=columnas] La app no adivina: dice qué columnas faltan, y la plantilla está para descargar ahí mismo. Cualquier falla interna se registra en el log, y el usuario ve un mensaje claro, nunca un error técnico.
 
 Diseñamos para un coordinador sin formación técnica: botones de ejemplo, una guía de uso y ayudas en cada campo, un resultado con probabilidad, categoría y acción sugerida, SHAP en lenguaje simple con la nota de que no indica causas, un aviso de que no se use para negar atención, un botón de revisión humana, español e inglés, y ningún dato guardado.
 
@@ -143,7 +143,7 @@ Su límite: es un prototipo, sin inicio de sesión."
 
 ## Pregunta 9 | Romel (opción A, datos tabulares)
 
-[Pantalla: `notebooks/05_evaluacion.ipynb`, figura 18 (resumen SHAP); luego `tests/test_data_processing.py`, función `test_historial_sin_fuga_temporal`]
+[Pantalla: diapositiva de la pregunta 9. Respaldo en GitHub: `notebooks/05_evaluacion.ipynb`, figura 18 (resumen SHAP); luego `tests/test_data_processing.py`, función `test_historial_sin_fuga_temporal`]
 
 **Leer en voz alta:** "Pregunta 9: Opción A, datos tabulares: ¿Qué variables resultaron más importantes y coincide eso con lo que esperaban del dominio? ¿Cómo evitaron fuga de datos (data leakage) al dividir los datos?"
 
@@ -157,7 +157,7 @@ Una limitación: esta importancia explica al modelo, no causas. El SMS parece au
 
 ## Pregunta 10 | Jhon
 
-[Pantalla: README, tabla «Sistema completo», y la figura `results/figures/20_simulacion.png`; luego la app con el lote de ejemplo, columna de millas]
+[Pantalla: diapositiva de la pregunta 10. Respaldo en GitHub: README, tabla «Sistema completo», y la figura `results/figures/20_simulacion.png`; luego el enlace ?demo=lote, columna de millas]
 
 **Leer en voz alta:** "Pregunta 10: Elijan la decisión técnica más difícil o importante de su proyecto (distinta de las ya preguntadas). ¿Qué alternativas consideraron y por qué eligieron esa?"
 
@@ -179,5 +179,5 @@ Con honestidad: el beneficio es simulado. Los datos no traen distancias, la asoc
 - [ ] Ninguna respuesta pasa de 2 minutos (cronometrar).
 - [ ] La app mostrada es la publicada (se ve la dirección `priorizacion-visitas-ia.streamlit.app` en el navegador).
 - [ ] Antes de grabar se abrió la app para que no esté dormida.
-- [ ] Para la pregunta 8, descargar del repositorio `app/assets/lote_con_errores.csv` y `app/assets/lote_columnas_faltantes.csv`.
+- [ ] Tener abiertas en pestañas los enlaces de demostración de la app (README, sección 6): ?demo=lote, ?demo=falla, ?demo=adulto_unico, ?demo=adulto, ?demo=acerca, ?demo=error, ?demo=lote_errores y ?demo=columnas.
 - [ ] Subir el video (YouTube no listado o Drive con acceso para la profesora) y agregar el enlace al README, sección 12.
