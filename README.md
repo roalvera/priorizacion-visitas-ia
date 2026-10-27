@@ -255,5 +255,5 @@ Gracias a Joni Hoppen por publicar el dataset, a CMS y al U.S. Census Bureau por
 
 ## 12. Videos
 
-- **Video pitch (5 minutos):** `<enlace de YouTube no listado o Google Drive>`
-- **Video de respuestas a las preguntas:** `<enlace>`
+- **Video pitch (5 minutos):** https://youtu.be/Wis2_W0N7dg
+- **Video de respuestas a las preguntas:** https://youtu.be/NS4ZxIF8lHk
