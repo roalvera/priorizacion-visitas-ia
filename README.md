@@ -231,6 +231,8 @@ Análisis completo con los 8 apartados: [`docs/consideraciones_eticas.md`](docs/
 
 Maestría en Inteligencia Artificial, Universidad Espíritu Santo (UEES). Docente: Gladys María Villegas Rugel.
 
+**Uso de herramientas de inteligencia artificial.** El equipo usó Claude (Anthropic) como herramienta de apoyo en la programación: escritura y revisión de código y pruebas. Los commits en los que participó llevan la línea `Co-Authored-By: Claude`, por eso aparece en la lista de contribuidores del repositorio. Las decisiones técnicas y la verificación de los resultados son responsabilidad de los integrantes del equipo.
+
 ## 10. Licencia
 
 Código bajo licencia [MIT](LICENSE). Los datos de citas y sus derivados se rigen por CC BY-NC-SA 4.0.
