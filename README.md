@@ -202,11 +202,9 @@ priorizacion-visitas-ia/
 ├── models/        best_model.pkl, model_v1.pkl, README.md
 ├── app/           app.py (Streamlit), textos.py (español e inglés), requirements.txt, assets/ (ejemplos, estilos, capturas)
 ├── tests/         Pruebas de procesamiento, modelo, evaluación de equidad e interfaz (pytest)
-├── results/       figures/ (24 gráficos a 300 DPI), metrics/ (JSON y CSV), reports/ (guion, preguntas y lista de verificación)
+├── results/       figures/ (25 gráficos a 300 DPI), metrics/ (JSON y CSV), reports/ (informe final, workshop y códigos QR)
 └── scripts/       Ejecución de los notebooks en orden y generación de códigos QR
 ```
-
-La correspondencia completa entre cada requisito de la guía y el repositorio está en [`results/reports/lista_verificacion_entrega.md`](results/reports/lista_verificacion_entrega.md).
 
 ## 8. Consideraciones éticas
 
